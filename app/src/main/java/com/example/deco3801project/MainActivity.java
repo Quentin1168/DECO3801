@@ -16,9 +16,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void handleText(View v) {
+    public void handleText(View v) { // This method run when button is clicked
         TextView ageInput = findViewById(R.id.ageText);
         String age = ageInput.getText().toString(); // Get age
         Log.d("info", age);
+        TextView genderInput = findViewById(R.id.genderText);
+        String gender = genderInput.getText().toString(); // Get gender
+        Log.d("info", gender);
     }
 }
