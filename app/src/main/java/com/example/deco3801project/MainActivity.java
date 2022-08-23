@@ -2,6 +2,8 @@ package com.example.deco3801project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -11,10 +13,13 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences pref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        pref = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
     }
 
 
@@ -25,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
         TextView genderInput = findViewById(R.id.genderText);
         String gender = genderInput.getText().toString(); // Get gender
         Log.d("info", gender);
+
+        // Saving information to UserInfo preference
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString("age", age);
+        edit.putString("gender", gender);
+        edit.commit();
     }
 
     public int calculateIntake(int age, String gender) {
