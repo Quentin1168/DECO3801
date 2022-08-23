@@ -3,13 +3,13 @@ package com.example.deco3801project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.util.Log;
 
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
         edit.putString("age", age);
         edit.putString("gender", gender);
         edit.commit();
+
+        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+        startActivity(intent);
     }
 
     public int calculateIntake(int age, String gender) {
