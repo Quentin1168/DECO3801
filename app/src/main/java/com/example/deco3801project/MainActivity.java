@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
@@ -22,6 +23,14 @@ public class MainActivity extends AppCompatActivity {
         pref = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
     }
 
+    public void handleGender(View v) {
+        Button genderButton = findViewById(R.id.gender_button);
+        if (genderButton.getText().equals("Male")) {
+            genderButton.setText(R.string.gender_female);
+        } else {
+            genderButton.setText(R.string.gender_male);
+        }
+    }
 
     public void handleText(View v) { // This method run when button is clicked
         TextView ageInput = findViewById(R.id.ageText);
