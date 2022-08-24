@@ -19,9 +19,13 @@ public class MainActivity2 extends AppCompatActivity {
 
         // Retrieves the user's input age and gender
         String age = pref.getString("age", null);
-        String gender = pref.getString("gender", null);
+        String gender = getString(R.string.gender_female);
 
         // Displays the user's age and gender for debugging purposes
+        boolean genderBool = pref.getBoolean("gender", true);
+        if (genderBool) {
+            gender = getString(R.string.gender_male);
+        }
         TextView ageInput = findViewById(R.id.ageText);
         ageInput.setText(age);
         TextView genderInput = findViewById(R.id.genderText);

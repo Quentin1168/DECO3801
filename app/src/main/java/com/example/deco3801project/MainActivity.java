@@ -36,15 +36,14 @@ public class MainActivity extends AppCompatActivity {
         TextView ageInput = findViewById(R.id.ageText);
         String age = ageInput.getText().toString(); // Get age
         Log.d("info", age);
-        TextView genderInput = findViewById(R.id.genderText);
-        String gender = genderInput.getText().toString(); // Get gender
-        Log.d("info", gender);
 
         // Saving information to UserInfo preference
+        Button genderButton = findViewById(R.id.gender_button);
         SharedPreferences.Editor edit = pref.edit();
         edit.putString("age", age);
-        edit.putString("gender", gender);
-        edit.commit();
+        boolean gender = genderButton.getText().equals("Male");
+        edit.putBoolean("gender", gender);
+        edit.apply();
 
         Intent intent = new Intent(MainActivity.this, MainActivity2.class);
         startActivity(intent);
