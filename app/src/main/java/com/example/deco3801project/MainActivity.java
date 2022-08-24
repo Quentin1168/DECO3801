@@ -41,35 +41,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public int calculateIntake(int age, String gender) {
-        int intake;
-        if (age <=8) { // Specifying for ages under 8
-            if (age == 1) {
-                intake = 1150;
-            } else if (age == 2 || age == 3) {
-                intake = 1300;
-            } else {
-                intake = 1600;
-            }
-            return intake;
-        }
-        // Since water intake is different for different genders at later ages
-        else if (gender.equalsIgnoreCase("Male")) {
-            if (age <= 13) {
-                intake = 2100;
-            }
-            else {
-                intake = 2500;
-            }
-        }
-        else {
-            if (age <= 13) {
-                intake = 1900;
-            }
-            else {
-                intake = 2000;
-            }
-        }
-        return intake;
-    }
+
 }

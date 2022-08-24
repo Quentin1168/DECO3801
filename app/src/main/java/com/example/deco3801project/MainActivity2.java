@@ -26,5 +26,43 @@ public class MainActivity2 extends AppCompatActivity {
         ageInput.setText(age);
         TextView genderInput = findViewById(R.id.genderText);
         genderInput.setText(gender);
+        TextView intakeInput = findViewById(R.id.intakeText);
+
+        int intake = calculateIntake(age, gender);
+
+        intakeInput.setText(String.valueOf(intake));
+    }
+
+    public int calculateIntake(String strAge, String gender) {
+        int intake;
+        int age = Integer.parseInt(strAge);
+        if (age <=8) { // Specifying for ages under 8
+            if (age == 1) {
+                intake = 1150;
+            } else if (age == 2 || age == 3) {
+                intake = 1300;
+            } else {
+                intake = 1600;
+            }
+            return intake;
+        }
+        // Since water intake is different for different genders at later ages
+        else if (gender.equalsIgnoreCase("Male")) {
+            if (age <= 13) {
+                intake = 2100;
+            }
+            else {
+                intake = 2500;
+            }
+        }
+        else {
+            if (age <= 13) {
+                intake = 1900;
+            }
+            else {
+                intake = 2000;
+            }
+        }
+        return intake;
     }
 }
