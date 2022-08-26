@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 intakeInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
                         R.drawable.rounded_grey_button));
+                intakeInput.setText("");
                 ageInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
                         R.drawable.rounded_white_button));
             }
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 ageInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
                         R.drawable.rounded_grey_button));
+                ageInput.setText("");
                 intakeInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
                         R.drawable.rounded_white_button));
             }
