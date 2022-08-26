@@ -1,6 +1,7 @@
 package com.example.deco3801project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.util.Log;
 import java.lang.String;
@@ -21,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences pref;
 
-    private TextView ageInput;
+    private EditText ageInput;
+    private EditText intakeInput;
     private Button genderButton;
     private Button continueButton;
 
@@ -34,7 +37,25 @@ public class MainActivity extends AppCompatActivity {
         ageInput = findViewById(R.id.ageText);
         genderButton = findViewById(R.id.gender_button);
         continueButton = findViewById(R.id.continue_button);
-
+        intakeInput = findViewById(R.id.intakeInput);
+        ageInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                intakeInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
+                        R.drawable.rounded_grey_button));
+                ageInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
+                        R.drawable.rounded_white_button));
+            }
+        });
+        intakeInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                ageInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
+                        R.drawable.rounded_grey_button));
+                intakeInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
+                        R.drawable.rounded_white_button));
+            }
+        });
         ageInput.addTextChangedListener(continueTextWatcher);
     }
 
