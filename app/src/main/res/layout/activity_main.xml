@@ -32,7 +32,8 @@
         app:layout_constraintVertical_bias="0.374" />
 
     <Button
-        android:id="@+id/button"
+        android:enabled="false"
+        android:id="@+id/continue_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="handleText"
