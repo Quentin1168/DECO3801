@@ -9,8 +9,8 @@
 
     <EditText
         android:id="@+id/ageText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
         android:autofillHints="age"
         android:background="@drawable/rounded_white_button"
         android:ellipsize="none"
@@ -29,13 +29,37 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.374" />
+        app:layout_constraintVertical_bias="0.15" />
+
+    <EditText
+        android:id="@+id/intakeInput"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:autofillHints="age"
+        android:background="@drawable/rounded_white_button"
+        android:ellipsize="none"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:hint="ENTER YOUR WATER INTAKE"
+        android:inputType="number"
+        android:letterSpacing="0.0892857143"
+        android:minHeight="48dp"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textColorHint="#80000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.584" />
 
     <Button
-        android:enabled="false"
         android:id="@+id/continue_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:enabled="false"
         android:onClick="handleText"
         android:text="continue"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,20 +67,33 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.834" />
+        app:layout_constraintVertical_bias="0.732" />
 
     <Button
         android:id="@+id/gender_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
         android:onClick="handleGender"
         android:text="@string/gender_male"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.595" />
+        app:layout_constraintVertical_bias="0.335" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OR"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/intakeInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gender_button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
