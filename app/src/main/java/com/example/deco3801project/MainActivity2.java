@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -20,21 +21,28 @@ public class MainActivity2 extends AppCompatActivity {
         // Retrieves the user's input age and gender
         String age = pref.getString("age", null);
         String gender = getString(R.string.gender_female);
-
-        // Displays the user's age and gender for debugging purposes
-        boolean genderBool = pref.getBoolean("gender", true);
-        if (genderBool) {
-            gender = getString(R.string.gender_male);
-        }
+        String input = pref.getString("intake", null);
+        int intake;
         TextView ageInput = findViewById(R.id.ageText);
-        ageInput.setText(age);
         TextView genderInput = findViewById(R.id.genderText);
-        genderInput.setText(gender);
+        // Displays the user's age and gender for debugging purposes
         TextView intakeInput = findViewById(R.id.intakeText);
-
-        int intake = calculateIntake(age, gender);
-
+        boolean genderBool = pref.getBoolean("gender", true);
+        if (age.equals("")) {
+            ageInput.setText("N/A");
+            genderInput.setText("N/A");
+            intake = Integer.parseInt(input);
+        }
+        else {
+            if (genderBool) {
+                gender = getString(R.string.gender_male);
+            }
+            ageInput.setText(age);
+            genderInput.setText(gender);
+            intake = calculateIntake(age, gender);
+        }
         intakeInput.setText(String.valueOf(intake));
+
     }
 
     public int calculateIntake(String strAge, String gender) {

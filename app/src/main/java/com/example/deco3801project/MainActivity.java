@@ -38,27 +38,22 @@ public class MainActivity extends AppCompatActivity {
         genderButton = findViewById(R.id.gender_button);
         continueButton = findViewById(R.id.continue_button);
         intakeInput = findViewById(R.id.intakeInput);
-        ageInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                intakeInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
-                        R.drawable.rounded_grey_button));
-                intakeInput.setText("");
-                ageInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
-                        R.drawable.rounded_white_button));
-            }
+        ageInput.setOnFocusChangeListener((view, b) -> {
+            intakeInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
+                    R.drawable.rounded_grey_button));
+            intakeInput.setText("");
+            ageInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
+                    R.drawable.rounded_white_button));
         });
-        intakeInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                ageInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
-                        R.drawable.rounded_grey_button));
-                ageInput.setText("");
-                intakeInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
-                        R.drawable.rounded_white_button));
-            }
+        intakeInput.setOnFocusChangeListener((view, b) -> {
+            ageInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
+                    R.drawable.rounded_grey_button));
+            ageInput.setText("");
+            intakeInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
+                    R.drawable.rounded_white_button));
         });
         ageInput.addTextChangedListener(continueTextWatcher);
+        intakeInput.addTextChangedListener(continueTextWatcher);
     }
 
     private TextWatcher continueTextWatcher = new TextWatcher() {
@@ -71,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             // Whenever the Age input is empty, the Continue button will be disabled
             String ageInputText = ageInput.getText().toString().trim();
-            continueButton.setEnabled(!ageInputText.isEmpty());
+            String intakeInputText = intakeInput.getText().toString().trim();
+            continueButton.setEnabled(!ageInputText.isEmpty() || !intakeInputText.isEmpty());
         }
 
         @Override
@@ -90,13 +86,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void handleText(View v) { // This method run when button is clicked
         String age = ageInput.getText().toString(); // Get age
+        String intake = intakeInput.getText().toString();
         Log.d("info", age);
-
         // Saving information to UserInfo preference
         SharedPreferences.Editor edit = pref.edit();
+
+        edit.putString("intake", intake);
         edit.putString("age", age);
         boolean gender = genderButton.getText().equals("Male");
         edit.putBoolean("gender", gender);
+
         edit.apply();
 
         Intent intent = new Intent(MainActivity.this, MainActivity2.class);
