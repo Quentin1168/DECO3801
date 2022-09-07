@@ -2,6 +2,7 @@ package com.example.deco3801project;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -21,6 +22,7 @@ import java.lang.String;
 
 public class MainActivity extends AppCompatActivity {
 
+
     SharedPreferences pref;
 
     private EditText ageInput;
@@ -32,10 +34,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         pref = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
 
         ageInput = findViewById(R.id.ageText);
         genderButton = findViewById(R.id.gender_button);
+
         continueButton = findViewById(R.id.continue_button);
         intakeInput = findViewById(R.id.intakeInput);
         ageInput.setOnFocusChangeListener((view, b) -> {
