@@ -112,22 +112,52 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleText(View v) { // This method run when button is clicked
-        String age = ageInput.getText().toString(); // Get age
+        int age = Integer.parseInt(ageInput.getText().toString()); // Get age
         String intake = intakeInput.getText().toString();
-        Log.d("info", age);
         // Saving information to UserInfo preference
         edit = pref.edit();
-
-        edit.putString("intake", intake);
-        edit.putString("age", age);
         boolean gender = genderButton.getText().equals("Male");
-        edit.putBoolean("gender", gender);
-
+        if (!intake.equals("")) {
+            edit.putInt("intake", Integer.parseInt(intake));
+        } else {
+            edit.putInt("intake", calculateIntake(age, gender));
+        }
         edit.apply();
 
         Intent intent = new Intent(MainActivity.this, MainActivity2.class);
         startActivity(intent);
     }
 
+    public int calculateIntake(int age, boolean gender) {
+        int intake;
+        if (age <=8) { // Specifying for ages under 8
+            if (age == 1) {
+                intake = 1150;
+            } else if (age == 2 || age == 3) {
+                intake = 1300;
+            } else {
+                intake = 1600;
+            }
+            return intake;
+        }
+        // Since water intake is different for different genders at later ages
+        else if (gender) {
+            if (age <= 13) {
+                intake = 2100;
+            }
+            else {
+                intake = 2500;
+            }
+        }
+        else {
+            if (age <= 13) {
+                intake = 1900;
+            }
+            else {
+                intake = 2000;
+            }
+        }
+        return intake;
+    }
 
 }
