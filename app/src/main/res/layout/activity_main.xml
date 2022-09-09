@@ -95,6 +95,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gender_button" />
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+

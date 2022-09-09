@@ -2,30 +2,28 @@ package com.example.deco3801project;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.security.crypto.EncryptedSharedPreferences;
-import androidx.security.crypto.MasterKeys;
+import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
-
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.util.Log;
-
-import java.io.IOException;
 import java.lang.String;
-import java.security.GeneralSecurityException;
 
 
 public class MainActivity extends AppCompatActivity {
 
 
     SharedPreferences pref;
-    SharedPreferences.Editor edit;
 
     private EditText ageInput;
     private EditText intakeInput;
@@ -36,29 +34,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String masterKeyAlias = null;
-        try {
-            masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        try {
-            pref = EncryptedSharedPreferences.create(
-                    "secret_shared_prefs",
-                    masterKeyAlias,
-                    getApplicationContext(),
-                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            );
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //pref = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        Intent i = new Intent(getApplicationContext(),MainActivity3.class);
+        startActivity(i);
+
+        pref = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
 
         ageInput = findViewById(R.id.ageText);
         genderButton = findViewById(R.id.gender_button);
@@ -115,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         int age = Integer.parseInt(ageInput.getText().toString()); // Get age
         String intake = intakeInput.getText().toString();
         // Saving information to UserInfo preference
-        edit = pref.edit();
+        SharedPreferences.Editor edit = pref.edit();
         boolean gender = genderButton.getText().equals("Male");
         if (!intake.equals("")) {
             edit.putInt("intake", Integer.parseInt(intake));
