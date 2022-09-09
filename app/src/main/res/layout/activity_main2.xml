@@ -12,29 +12,16 @@
 
     <TextView
         android:id="@+id/intakeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="354dp"
-        android:layout_marginEnd="163dp"
+        android:layout_width="126dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="142dp"
+        android:layout_marginTop="339dp"
+        android:layout_marginEnd="143dp"
         android:elevation="10dp"
-        app:layout_constraintEnd_toStartOf="parent"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/genderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:showDividers="middle"
-        android:text="Input Gender"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
@@ -58,7 +45,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="240dp"
         android:layout_marginEnd="81dp"
-        android:gravity = "center"
+        android:gravity="center"
         android:text="Amount Drunk"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,8 +61,10 @@
         android:layout_marginBottom="233dp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.727" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
