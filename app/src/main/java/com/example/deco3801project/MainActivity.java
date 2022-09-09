@@ -118,17 +118,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleText(View v) { // This method run when button is clicked
-        int age = Integer.parseInt(ageInput.getText().toString()); // Get age
+        String ageStr = ageInput.getText().toString();
+        int age = 0;
+        if (!ageStr.equals("")) {
+            age = Integer.parseInt(ageStr); // Get age
+        }
         String intake = intakeInput.getText().toString();
         // Saving information to UserInfo preference
         SharedPreferences.Editor edit = pref.edit();
         boolean gender = genderButton.getText().toString().equalsIgnoreCase("Male");
-        /*if (!intake.equals("")) {
+        if (!intake.equals("")) {
             edit.putInt("intake", Integer.parseInt(intake));
         } else {
             edit.putInt("intake", calculateIntake(age, gender));
-        }*/
-        edit.putInt("intake", calculateIntake(age, gender));
+        }
         edit.apply();
 
         Intent intent = new Intent(MainActivity.this, MainActivity2.class);
