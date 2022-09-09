@@ -8,10 +8,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+
+import me.itangqi.waveloadingview.WaveLoadingView;
 
 public class MainActivity2 extends AppCompatActivity {
 
@@ -51,6 +54,38 @@ public class MainActivity2 extends AppCompatActivity {
 
         intakeInput.setText(String.valueOf(intake));
 
+        SeekBar seekBar = findViewById(R.id.seekBar);
+        WaveLoadingView waveLoadingView = findViewById(R.id.textView3);
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                waveLoadingView.setProgressValue(i);
+
+                String title = String.valueOf(i);
+                waveLoadingView.setBottomTitle("");
+                waveLoadingView.setCenterTitle("");
+                waveLoadingView.setTopTitle("");
+
+                if (i < 50) {
+                    waveLoadingView.setBottomTitle(title);
+                } else if (i == 50) {
+                    waveLoadingView.setCenterTitle(title);
+                } else {
+                    waveLoadingView.setTopTitle(title);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
 }
