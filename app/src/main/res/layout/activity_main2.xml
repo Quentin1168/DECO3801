@@ -19,6 +19,8 @@
         android:layout_marginEnd="143dp"
         android:elevation="10dp"
         android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +32,7 @@
         android:showDividers="middle"
         android:text="Recommended daily intake"
         android:textAlignment="center"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,20 +53,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:wlv_borderColor="@color/purple_200"
-        app:wlv_waveColor="@color/purple_700" />
+        app:wlv_borderColor="@color/purple_700"
+        app:wlv_waveColor="@color/purple_500" />
 
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="233dp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.727" />
+        app:layout_constraintVertical_bias="0.914" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
