@@ -8,43 +8,19 @@
     tools:context=".MainActivity2">
 
     <TextView
-        android:id="@+id/ageText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Input Age"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/genderText" />
-
-    <TextView
         android:id="@+id/intakeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="354dp"
+        android:layout_marginEnd="163dp"
+        android:elevation="10dp"
         android:text="Input Intake"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ageText" />
-
-    <TextView
-        android:id="@+id/genderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Input Gender"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -63,13 +39,15 @@
         android:id="@+id/textView3"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="240dp"
+        android:layout_marginEnd="81dp"
         android:gravity="center"
         android:text="Amount Drunk"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/intakeText"
+        app:layout_constraintTop_toTopOf="parent"
         app:wlv_borderColor="@color/purple_200"
         app:wlv_waveColor="@color/purple_700" />
 
