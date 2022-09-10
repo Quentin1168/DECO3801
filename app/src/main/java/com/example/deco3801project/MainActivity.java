@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Slider Intro
         Intent i = new Intent(getApplicationContext(),MainActivity3.class);
         startActivity(i);
 

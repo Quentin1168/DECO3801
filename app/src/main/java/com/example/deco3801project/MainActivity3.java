@@ -18,6 +18,7 @@ public class MainActivity3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
+        // Finish this activity and back to where it was intended
         button = (Button) findViewById(R.id.close_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,11 +27,10 @@ public class MainActivity3 extends AppCompatActivity {
             }
         });
 
+        // Show slides
         viewPager = (ViewPager)findViewById(R.id.viewpager);
         sliderAdapter = new SliderAdapter(this);
         viewPager.setAdapter(sliderAdapter);
-
-
 
     }
 
