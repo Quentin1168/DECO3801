@@ -67,5 +67,41 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.914" />
 
+    <EditText
+        android:id="@+id/drinkText"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:autofillHints="Enter your intake"
+        android:background="@drawable/rounded_white_button"
+        android:ellipsize="none"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:hint="Enter your intake"
+        android:inputType="number"
+        android:letterSpacing="0.0892857143"
+        android:minHeight="48dp"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textColorHint="#80000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.831" />
 
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:enabled="false"
+        android:onClick="handleText"
+        android:text="Log intake"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.937" />
 </androidx.constraintlayout.widget.ConstraintLayout>

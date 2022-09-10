@@ -7,7 +7,12 @@ import androidx.security.crypto.MasterKeys;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -19,7 +24,9 @@ import me.itangqi.waveloadingview.WaveLoadingView;
 public class MainActivity2 extends AppCompatActivity {
 
     SharedPreferences pref;
-
+    private EditText drinkInput;
+    private Button continueButton;
+    private int intake;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +54,16 @@ public class MainActivity2 extends AppCompatActivity {
         }
         //pref = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         setContentView(R.layout.activity_main2);
-        int intake = pref.getInt("intake", 0);
+        intake = pref.getInt("intake", 0);
         // Retrieves the user's input age and gender
 
         TextView intakeInput = findViewById(R.id.intakeText);
 
         intakeInput.setText(String.valueOf(intake));
+        drinkInput = findViewById(R.id.drinkText);
+        continueButton = findViewById(R.id.add_button);
+        drinkInput.addTextChangedListener(continueTextWatcher);
+
 
         SeekBar seekBar = findViewById(R.id.seekBar);
         WaveLoadingView waveLoadingView = findViewById(R.id.textView3);
@@ -86,6 +97,53 @@ public class MainActivity2 extends AppCompatActivity {
 
             }
         });
+
+
     }
+    private TextWatcher continueTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            // Whenever the Age input is empty, the Continue button will be disabled
+            String drinkInputText = drinkInput.getText().toString().trim();
+            continueButton.setEnabled(!drinkInputText.isEmpty());
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
+    public void handleText(View v) { // This method run when button is clicked
+        String drinkStr = drinkInput.getText().toString();
+        int drink = 0;
+        if (!drinkStr.equals("")) {
+            drink = Integer.parseInt(drinkStr); // Get age
+        }
+
+        try {
+            subtract_intake(drink);
+        } catch(IllegalArgumentException e) {
+
+        }
+        TextView intakeInput = findViewById(R.id.intakeText);
+
+        intakeInput.setText(String.valueOf(intake));
+        drinkInput.setText("");
+    };
+
+    protected void subtract_intake(int drink) throws IllegalArgumentException {
+        intake = intake - drink;
+        if (intake > 0) {
+            throw new IllegalArgumentException("Drink cannot be larger than intake");
+        }
+    }
+
+
 
 }
