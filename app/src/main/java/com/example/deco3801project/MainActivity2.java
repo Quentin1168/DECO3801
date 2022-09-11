@@ -4,12 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
-import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +25,8 @@ public class MainActivity2 extends AppCompatActivity {
     SharedPreferences pref;
     private EditText drinkInput;
     private Button continueButton;
-    private int intake;
+    private int recommendedIntake;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,20 +52,31 @@ public class MainActivity2 extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //pref = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+
         setContentView(R.layout.activity_main2);
-        intake = pref.getInt("intake", 0);
-        // Retrieves the user's input age and gender
+        recommendedIntake = pref.getInt("recommendedIntake", 0);
 
-        TextView intakeInput = findViewById(R.id.intakeText);
+        // Create a new sharedPref called amountLeftToDrink that will be edited later on
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putInt("currentAmountLeftToDrink", recommendedIntake);
 
-        intakeInput.setText(String.valueOf(intake));
+        edit.apply();
+
+        // The total amount of water to drink initially
+        TextView amountToDrink = findViewById(R.id.amountToDrink);
+        amountToDrink.setText(String.valueOf(recommendedIntake));
+
+        // The percentage of the amount left to drink
+        TextView amountToDrinkPercent = findViewById(R.id.amountToDrinkPercentage);
+        amountToDrinkPercent.setText("0%");
+
         drinkInput = findViewById(R.id.drinkText);
         continueButton = findViewById(R.id.add_button);
         drinkInput.addTextChangedListener(continueTextWatcher);
 
-
         SeekBar seekBar = findViewById(R.id.seekBar);
+        seekBar.setMax(100); // Sets the water height to 100%
+
         WaveLoadingView waveLoadingView = findViewById(R.id.textView3);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -108,14 +119,17 @@ public class MainActivity2 extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            // Whenever the Age input is empty, the Continue button will be disabled
+            // Whenever the Drink input is empty, the Continue button will be disabled
             String drinkInputText = drinkInput.getText().toString().trim();
             continueButton.setEnabled(!drinkInputText.isEmpty());
         }
 
         @Override
         public void afterTextChanged(Editable editable) {
-
+            SeekBar seekBar = findViewById(R.id.seekBar);
+            int currentAmountLeftToDrink = pref.getInt("currentAmountLeftToDrink", 0);
+            double percentageRemaining = calculate_remaining_percentage(currentAmountLeftToDrink);
+            seekBar.setProgress((int) percentageRemaining, true);
         }
     };
 
@@ -123,27 +137,45 @@ public class MainActivity2 extends AppCompatActivity {
         String drinkStr = drinkInput.getText().toString();
         int drink = 0;
         if (!drinkStr.equals("")) {
-            drink = Integer.parseInt(drinkStr); // Get age
+            drink = Integer.parseInt(drinkStr); // Get amount to be drunk
         }
+
+        int currentAmountLeftToDrink = pref.getInt("currentAmountLeftToDrink", 0);
 
         try {
-            subtract_intake(drink);
-        } catch(IllegalArgumentException e) {
+            currentAmountLeftToDrink = subtract_intake(currentAmountLeftToDrink, drink);
+        } catch (IllegalArgumentException e) {
 
         }
-        TextView intakeInput = findViewById(R.id.intakeText);
+        // Update the current amount left to drink
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putInt("currentAmountLeftToDrink", currentAmountLeftToDrink);
+        edit.apply();
 
-        intakeInput.setText(String.valueOf(intake));
+        // Get the TextViews' texts
+        TextView amountToDrink = findViewById(R.id.amountToDrink);
+        TextView amountToDrinkPercent = findViewById(R.id.amountToDrinkPercentage);
+
+        // Update the TextViews' texts appropriately
+        amountToDrink.setText(String.valueOf(currentAmountLeftToDrink));
+        double percentageRemaining = calculate_remaining_percentage(currentAmountLeftToDrink);
+        amountToDrinkPercent.setText(String.valueOf(percentageRemaining).concat("%"));
         drinkInput.setText("");
     };
 
-    protected void subtract_intake(int drink) throws IllegalArgumentException {
-        intake = intake - drink;
-        if (intake > 0) {
-            throw new IllegalArgumentException("Drink cannot be larger than intake");
-        }
+    protected double calculate_remaining_percentage(int currentAmountLeftToDrink) {
+        recommendedIntake = pref.getInt("recommendedIntake", 0);
+        double percentage = 100 * ((double) currentAmountLeftToDrink / (double) recommendedIntake);
+        return percentage;
     }
 
+    protected int subtract_intake(int currentAmountLeftToDrink, int drink)
+            throws IllegalArgumentException {
+        if (drink > currentAmountLeftToDrink) {
+            throw new IllegalArgumentException("Drink cannot be larger than intake");
+        }
 
+        return (currentAmountLeftToDrink - drink);
+    }
 
 }

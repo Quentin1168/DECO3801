@@ -129,9 +129,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor edit = pref.edit();
         boolean gender = genderButton.getText().toString().equalsIgnoreCase("Male");
         if (!intake.equals("")) {
-            edit.putInt("intake", Integer.parseInt(intake));
+            edit.putInt("recommendedIntake", Integer.parseInt(intake));
         } else {
-            edit.putInt("intake", calculateIntake(age, gender));
+            edit.putInt("recommendedIntake", calculateIntake(age, gender));
         }
         edit.apply();
 
