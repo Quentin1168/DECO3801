@@ -18,6 +18,10 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
+/**
+ * See https://github.com/tangqi92/WaveLoadingView for the code of wave function
+ * external library
+ */
 import me.itangqi.waveloadingview.WaveLoadingView;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -84,13 +88,14 @@ public class MainActivity2 extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 waveLoadingView.setProgressValue(i);
 
+                // Show % of the wave
                 String title = String.valueOf(i);
                 waveLoadingView.setBottomTitle("");
                 waveLoadingView.setCenterTitle("");
                 waveLoadingView.setTopTitle("");
 
                 if (i < 50) {
-                    waveLoadingView.setBottomTitle(title);
+                    waveLoadingView.setBottomTitle(title);  // % show in the bottom part of wave
                 } else if (i == 50) {
                     waveLoadingView.setCenterTitle(title);
                 } else {
