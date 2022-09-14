@@ -1,14 +1,17 @@
 package com.example.deco3801project;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +20,9 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * See https://github.com/tangqi92/WaveLoadingView for the code of wave function
@@ -34,6 +40,13 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Get current date in format dd
+        DateFormat df = new SimpleDateFormat("dd");
+        String date = df.format(Calendar.getInstance().getTime());
+        Log.d("date", date);
+
+        // Encryption
         String masterKeyAlias = null;
         try {
             masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
@@ -129,6 +142,7 @@ public class MainActivity2 extends AppCompatActivity {
             continueButton.setEnabled(!drinkInputText.isEmpty());
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public void afterTextChanged(Editable editable) {
             SeekBar seekBar = findViewById(R.id.seekBar);
