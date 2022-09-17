@@ -20,13 +20,25 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:orientation="vertical">
-
-        <Button
-            android:id="@+id/close_button"
+        <!--
+                <Button
+                    android:id="@+id/close_button"
+                    android:layout_width="320dp"
+                    android:layout_height="50dp"
+                    android:enabled="true"
+                    android:autofillHints="close"
+                    android:background="@drawable/rounded_grey_button"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Get started" />
+        -->
+        <TextView
+            android:id="@+id/txtButtonClickable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:enabled="true"
-            android:text="Get started" />
+            android:width="320dp"
+            android:height="50dp"
+            android:clickable="true"
+            android:focusable="true" />
 
     </LinearLayout>
 

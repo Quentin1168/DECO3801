@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,14 +29,15 @@ public class SliderAdapter extends PagerAdapter {
     Drawable bgImage2;
     Drawable bgImage3;
     public Drawable[] bgImages;
-
+    // Text buttons
+    public String[] buttonsArray = {"","","Get Started!"};
     // Use this to place images on top of background
     public int[] imagesArray = {R.drawable.drinkwater, R.drawable.nfcbottle, R.drawable.carryit};
     // Title message & description array
-    public String[] titleArray = {"Welcome!","Less hassle with our Smart Bottle","Let's get started!"};
-    public String[] descriptionArray = {"Our water bottle & app are simple and better",
-            "Our bottle automatically get your water intake",
-            "Just with your age and gender. Better yet with your essential daily water intake"};
+    public String[] titleArray = {"Welcome!","Less hassle with our Smart Bottle","Start Today!"};
+    public String[] descriptionArray = {"Our smart water bottle & app are simple and better",
+            "Our smart bottle automatically get your water intake",
+            "Just with your age and gender, or with your essential daily water intake"};
     public int[] backgroundColourArray = {Color.LTGRAY, Color.LTGRAY, Color.LTGRAY};
 
     public SliderAdapter(Context context) {
@@ -80,11 +82,13 @@ public class SliderAdapter extends PagerAdapter {
         ImageView imageView = (ImageView) view.findViewById(R.id.slideimg);
         TextView t1_title = (TextView) view.findViewById(R.id.txtTitle);
         TextView t2_desc = (TextView) view.findViewById(R.id.txtDescription);
-        frameLayout.setBackground(bgImages[position]);
+        TextView t3_btn = (TextView) view.findViewById(R.id.txtButton);
+        //frameLayout.setBackground(bgImages[position]);
         frameLayout.setBackgroundColor(backgroundColourArray[position]);
         imageView.setImageResource(imagesArray[position]);
         t1_title.setText(titleArray[position]);
         t2_desc.setText(descriptionArray[position]);
+        t3_btn.setText(buttonsArray[position]);
         container.addView(view);
         return view;
     }

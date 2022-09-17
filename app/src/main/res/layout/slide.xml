@@ -24,26 +24,47 @@
         >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
             android:id="@+id/txtTitle"
-            android:textSize="30sp"
-            android:textColor="#000"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:text="Title Here"
-            />
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:text="description here"
-            android:textSize="17sp"
-            android:textAlignment="center"
-            android:id="@+id/txtDescription"
+            android:fontFamily="sans-serif-medium"
             android:padding="16dp"
-            />
+            android:text="Title Here"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtDescription"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:padding="16dp"
+            android:text="description here"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtButton"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:padding="16dp"
+            android:text="button"
+            android:textAlignment="center"
+            android:textColor="#DDDDDD"
+            android:textSize="30dp" />
 
     </LinearLayout>
 
