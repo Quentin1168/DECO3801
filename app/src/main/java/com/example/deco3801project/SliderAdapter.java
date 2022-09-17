@@ -30,10 +30,12 @@ public class SliderAdapter extends PagerAdapter {
     public Drawable[] bgImages;
 
     // Use this to place images on top of background
-    public int[] imagesArray = {R.drawable.background1, R.drawable.background2, R.drawable.background3};
+    public int[] imagesArray = {R.drawable.drinkwater, R.drawable.nfcbottle, R.drawable.carryit};
     // Title message & description array
-    public String[] titleArray = {"Welcome to our Water Intake App","Bottle Image Here","Sign Up?"};
-    public String[] descriptionArray = {"description here1", "description here2", "description here3"};
+    public String[] titleArray = {"Welcome!","Less hassle with our Smart Bottle","Let's get started!"};
+    public String[] descriptionArray = {"Our water bottle & app are simple and better",
+            "Our bottle automatically get your water intake",
+            "Just with your age and gender. Better yet with your essential daily water intake"};
     public int[] backgroundColourArray = {Color.LTGRAY, Color.LTGRAY, Color.LTGRAY};
 
     public SliderAdapter(Context context) {
@@ -41,9 +43,9 @@ public class SliderAdapter extends PagerAdapter {
         res = this.context.getResources();
         this.bgImages = new Drawable[3];
         this.bgImages = setBgImages();
-        bgImage1 = ResourcesCompat.getDrawable(res, R.drawable.background1, null);
-        bgImage2 = ResourcesCompat.getDrawable(res, R.drawable.background2, null);
-        bgImage3 = ResourcesCompat.getDrawable(res, R.drawable.background3, null);
+        bgImage1 = ResourcesCompat.getDrawable(res, R.drawable.drinkwater, null);
+        bgImage2 = ResourcesCompat.getDrawable(res, R.drawable.nfcbottle, null);
+        bgImage3 = ResourcesCompat.getDrawable(res, R.drawable.carryit, null);
     }
 
     // set background images to an array if we want to use in slider
@@ -75,12 +77,12 @@ public class SliderAdapter extends PagerAdapter {
         inflater = (LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.slide, container, false);
         FrameLayout frameLayout = (FrameLayout)  view.findViewById(R.id.frameLayout);
-        //ImageView imageView = (ImageView) view.findViewById(R.id.slideimg);
+        ImageView imageView = (ImageView) view.findViewById(R.id.slideimg);
         TextView t1_title = (TextView) view.findViewById(R.id.txtTitle);
         TextView t2_desc = (TextView) view.findViewById(R.id.txtDescription);
         frameLayout.setBackground(bgImages[position]);
         frameLayout.setBackgroundColor(backgroundColourArray[position]);
-        //imageView.setImageResource(imagesArray[position]);
+        imageView.setImageResource(imagesArray[position]);
         t1_title.setText(titleArray[position]);
         t2_desc.setText(descriptionArray[position]);
         container.addView(view);
