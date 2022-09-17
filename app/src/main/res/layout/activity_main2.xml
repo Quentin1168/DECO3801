@@ -53,22 +53,23 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.129" />
+        app:layout_constraintVertical_bias="0.159" />
 
     <me.itangqi.waveloadingview.WaveLoadingView
         android:id="@+id/textView3"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="293dp"
+        android:layout_height="290dp"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="204dp"
         android:layout_marginEnd="81dp"
         android:gravity="center"
         android:text="Amount Drunk"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:wlv_borderColor="@color/purple_700"
@@ -80,10 +81,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.914" />
+        app:layout_constraintVertical_bias="0.86" />
 
     <EditText
         android:id="@+id/drinkText"
@@ -107,7 +108,7 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.831" />
+        app:layout_constraintVertical_bias="0.767" />
 
     <Button
         android:id="@+id/add_button"
@@ -121,5 +122,61 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.937" />
+        app:layout_constraintVertical_bias="0.877" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_button"
+        tools:layout_editor_absoluteX="1dp">
+
+        <ImageButton
+            android:id="@+id/btnTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="#DFDFDF"
+            android:contentDescription="Timer"
+            app:srcCompat="@drawable/ic_timer" />
+
+        <ImageButton
+            android:id="@+id/btnCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="#DFDFDF"
+            android:contentDescription="Calendar"
+            app:srcCompat="@drawable/ic_calendar" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="1dp">
+
+        <ImageButton
+            android:id="@+id/btnSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:contentDescription="Setting"
+            app:srcCompat="@drawable/ic_setting" />
+
+        <ImageButton
+            android:id="@+id/btnReward"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:contentDescription="Reward"
+            app:srcCompat="@drawable/ic_reward" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
