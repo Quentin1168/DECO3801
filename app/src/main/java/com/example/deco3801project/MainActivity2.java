@@ -96,6 +96,8 @@ public class MainActivity2 extends AppCompatActivity {
 
         WaveLoadingView waveLoadingView = findViewById(R.id.textView3);
 
+        seekBar.setEnabled(false);
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -126,7 +128,6 @@ public class MainActivity2 extends AppCompatActivity {
 
             }
         });
-
 
     }
     private TextWatcher continueTextWatcher = new TextWatcher() {

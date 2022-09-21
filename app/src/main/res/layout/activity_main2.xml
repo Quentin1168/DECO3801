@@ -15,7 +15,7 @@
         android:layout_width="126dp"
         android:layout_height="53dp"
         android:layout_marginStart="142dp"
-        android:layout_marginTop="308dp"
+        android:layout_marginTop="304dp"
         android:layout_marginEnd="143dp"
         android:elevation="10dp"
         android:textAlignment="center"
@@ -31,7 +31,7 @@
         android:layout_width="126dp"
         android:layout_height="53dp"
         android:layout_marginStart="142dp"
-        android:layout_marginTop="364dp"
+        android:layout_marginTop="356dp"
         android:layout_marginEnd="143dp"
         android:elevation="10dp"
         android:textAlignment="center"
@@ -63,7 +63,7 @@
         android:layout_width="293dp"
         android:layout_height="290dp"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="204dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="81dp"
         android:gravity="center"
         android:text="Amount Drunk"
@@ -77,6 +77,7 @@
 
     <SeekBar
         android:id="@+id/seekBar"
+        android:enabled="false"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
@@ -132,14 +133,14 @@
         app:layout_constraintTop_toBottomOf="@+id/add_button"
         tools:layout_editor_absoluteX="1dp">
 
-        <ImageButton
-            android:id="@+id/btnTimer"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:backgroundTint="#DFDFDF"
-            android:contentDescription="Timer"
-            app:srcCompat="@drawable/ic_timer" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/btnTimer"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:backgroundTint="#DFDFDF"-->
+<!--            android:contentDescription="Timer"-->
+<!--            app:srcCompat="@drawable/ic_timer" />-->
 
         <ImageButton
             android:id="@+id/btnCalendar"

@@ -35,9 +35,9 @@ public class SliderAdapter extends PagerAdapter {
     public int[] imagesArray = {R.drawable.drinkwater, R.drawable.nfcbottle, R.drawable.carryit};
     // Title message & description array
     public String[] titleArray = {"Welcome!","Less hassle with our Smart Bottle","Start Today!"};
-    public String[] descriptionArray = {"Our smart water bottle & app are simple and better",
-            "Our smart bottle automatically get your water intake",
-            "Just with your age and gender, or with your essential daily water intake"};
+    public String[] descriptionArray = {"Our smart water bottle & app are simpler and better",
+            "Our smart bottle automatically gets your water intake",
+            "Just with your age and gender, or your essential daily water intake"};
     public int[] backgroundColourArray = {Color.LTGRAY, Color.LTGRAY, Color.LTGRAY};
 
     public SliderAdapter(Context context) {
