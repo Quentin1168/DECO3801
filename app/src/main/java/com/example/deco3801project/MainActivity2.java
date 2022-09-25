@@ -2,9 +2,12 @@ package com.example.deco3801project;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -129,6 +132,23 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
+        // Create an explicit intent for an Activity in your app
+        Intent intent = new Intent(this, MainActivity2.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "1")
+                .setSmallIcon(R.drawable.ic_baseline_local_drink_24)
+                .setContentTitle("Drink Water!")
+                .setContentText("You should drink some water soon if you haven't yet!")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        // notificationId is a unique int for each notification that must be defined
+        notificationManager.notify(1, notificationBuilder.build());
     }
     private TextWatcher continueTextWatcher = new TextWatcher() {
         @Override
