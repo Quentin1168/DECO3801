@@ -13,16 +13,9 @@ import androidx.core.app.NotificationManagerCompat;
 
 public class HourlyReceiver extends BroadcastReceiver {
     public static final int NOTIFICATION_ID = 1;
-    //public static String NOTIFICATION = "notification";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // Strings for debugging (check Logcat)
-        // The code below does not run
-        // TODO: Make the code below run
-        Log.d("Hourly Receiver", "In here");
-        System.out.println("Here");
-
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         // NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 

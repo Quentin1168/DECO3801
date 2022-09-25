@@ -237,14 +237,8 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private void setNotificationToIntervals(Notification notification) {
-        // String for debugging (check Logcat)
-        // It can be verified that the code below does run
-        System.out.println("First one");
-
         // Set the Notification created to fire up at regular intervals
         Intent intent = new Intent(this, HourlyReceiver.class);
-        //intent.putExtra(HourlyReceiver.NOTIFICATION_ID, 1);
-        //intent.putExtra(HourlyReceiver.NOTIFICATION, notification);
 
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
@@ -259,19 +253,14 @@ public class MainActivity2 extends AppCompatActivity {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
 
-        calendar.set(Calendar.HOUR_OF_DAY, 4); // set the time to 8 AM
+        calendar.set(Calendar.HOUR_OF_DAY, 8); // set the time to 8 AM
 
         // set the window to be from 8 AM to 8 PM
-        //alarmManager.setWindow(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(),
-        //        12 * 60 * 60 * 1000, pendingIntent);
+        alarmManager.setWindow(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(),
+                12 * 60 * 60 * 1000, pendingIntent);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000, pendingIntent); // make the alarm repeat every hour (every second for testing)
-        //alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtimeNanos() + 5000, pendingIntent);
-        /*
-        if (pendingIntent != null) {
-            alarmManager.cancel(pendingIntent);
-        }*/
+                60 * 60 * 1000, pendingIntent); // make the alarm repeat every hour (every second for testing)
 
-        // TODO: Make sure the Alarm can handle device reboots
+        // TODO: Make sure the Notification Alarm can handle device reboots
     }
 }
