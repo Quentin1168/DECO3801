@@ -259,18 +259,18 @@ public class MainActivity2 extends AppCompatActivity {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
 
-        calendar.set(Calendar.HOUR_OF_DAY, 8); // set the time to 8 AM
+        calendar.set(Calendar.HOUR_OF_DAY, 4); // set the time to 8 AM
 
         // set the window to be from 8 AM to 8 PM
         //alarmManager.setWindow(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(),
         //        12 * 60 * 60 * 1000, pendingIntent);
-        alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(),
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 1000, pendingIntent); // make the alarm repeat every hour (every second for testing)
         //alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtimeNanos() + 5000, pendingIntent);
-
+        /*
         if (pendingIntent != null) {
             alarmManager.cancel(pendingIntent);
-        }
+        }*/
 
         // TODO: Make sure the Alarm can handle device reboots
     }
