@@ -7,11 +7,18 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -132,23 +139,10 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-        // Create an explicit intent for an Activity in your app
-        Intent intent = new Intent(this, MainActivity2.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "1")
-                .setSmallIcon(R.drawable.ic_baseline_local_drink_24)
-                .setContentTitle("Drink Water!")
-                .setContentText("You should drink some water soon if you haven't yet!")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-
-        // notificationId is a unique int for each notification that must be defined
-        notificationManager.notify(1, notificationBuilder.build());
+        // Build and call the Notification for testing
+        Notification notification = buildNotification();
+        callNotification(notification);
+        setNotificationToIntervals(notification);
     }
     private TextWatcher continueTextWatcher = new TextWatcher() {
         @Override
@@ -201,7 +195,7 @@ public class MainActivity2 extends AppCompatActivity {
         double percentageRemaining = calculate_remaining_percentage(currentAmountLeftToDrink);
         amountToDrinkPercent.setText(String.valueOf(percentageRemaining).concat("%"));
         drinkInput.setText("");
-    };
+    }
 
     protected double calculate_remaining_percentage(int currentAmountLeftToDrink) {
         recommendedIntake = pref.getInt("recommendedIntake", 0);
@@ -218,4 +212,66 @@ public class MainActivity2 extends AppCompatActivity {
         return (currentAmountLeftToDrink - drink);
     }
 
+    private Notification buildNotification() {
+        // Create an explicit intent for an Activity in your app
+        Intent intent = new Intent(this, MainActivity2.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "1")
+                .setSmallIcon(R.drawable.ic_baseline_local_drink_24)
+                .setContentTitle("Drink Water!")
+                .setContentText("You should drink some water soon if you haven't yet!")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        return notificationBuilder.build();
+    }
+
+    private void callNotification(Notification notification) {
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        // notificationId is a unique int for each notification that must be defined
+        notificationManager.notify(1, notification);
+    }
+
+    private void setNotificationToIntervals(Notification notification) {
+        // String for debugging (check Logcat)
+        // It can be verified that the code below does run
+        System.out.println("First one");
+
+        // Set the Notification created to fire up at regular intervals
+        Intent intent = new Intent(this, HourlyReceiver.class);
+        //intent.putExtra(HourlyReceiver.NOTIFICATION_ID, 1);
+        //intent.putExtra(HourlyReceiver.NOTIFICATION, notification);
+
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        // Set the alarm to start at 8 AM and to repeat every hour afterwards until 8 PM
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        // If it is past 8 PM, set the alarm for tomorrow instead
+        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) > 20) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        calendar.set(Calendar.HOUR_OF_DAY, 8); // set the time to 8 AM
+
+        // set the window to be from 8 AM to 8 PM
+        //alarmManager.setWindow(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(),
+        //        12 * 60 * 60 * 1000, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(),
+                1000, pendingIntent); // make the alarm repeat every hour (every second for testing)
+        //alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtimeNanos() + 5000, pendingIntent);
+
+        if (pendingIntent != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+
+        // TODO: Make sure the Alarm can handle device reboots
+    }
 }
