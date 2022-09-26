@@ -15,9 +15,13 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,6 +31,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -40,6 +47,8 @@ import java.util.Calendar;
  */
 import me.itangqi.waveloadingview.WaveLoadingView;
 
+
+
 public class MainActivity2 extends AppCompatActivity {
 
     SharedPreferences pref;
@@ -47,6 +56,15 @@ public class MainActivity2 extends AppCompatActivity {
     private Button continueButton;
     private int recommendedIntake;
 
+    public static final String Error_Detected = "No NFC Tag Detected";
+    public static final String Write_Sucess = "Text Successfully Written";
+    public static final String Write_Error = "Error During Writing, Try Again";
+
+    NfcAdapter nfcAdapter;
+    PendingIntent pendingIntent;
+    Context context;
+    int running = 0;
+    StopWatch timer = new StopWatch();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +106,24 @@ public class MainActivity2 extends AppCompatActivity {
         edit.putInt("currentAmountLeftToDrink", recommendedIntake);
 
         edit.apply();
+        // NFC testing
+        context = this;
 
+
+        nfcAdapter =  NfcAdapter.getDefaultAdapter(this);
+        if (nfcAdapter ==  null) {
+            Toast.makeText(this, "This device doesn't support nfc", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        readfromIntent(getIntent());
+        pendingIntent =
+                PendingIntent.getActivity(this, 0,
+                        new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), 0);
+
+        IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
+        tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
+        // writingTagFilters = new IntentFilter[] { tagDetected };
         // The total amount of water to drink initially
         TextView amountToDrink = findViewById(R.id.amountToDrink);
         amountToDrink.setText(String.valueOf(recommendedIntake));
@@ -144,6 +179,27 @@ public class MainActivity2 extends AppCompatActivity {
         callNotification(notification);
         setNotificationToIntervals(notification);
     }
+
+    private void readfromIntent(Intent intent) {
+        String action = intent.getAction();
+        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)
+                || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
+                || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action))  {
+            if (running == 0) {
+                timer.runTimer();
+                running++;
+            }
+            else if (running == 1) {
+                timer.reset();
+                running = 0;
+                System.out.println(timer.getPrevSeconds());
+            }
+
+        }
+    }
+
+
+
     private TextWatcher continueTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -264,3 +320,4 @@ public class MainActivity2 extends AppCompatActivity {
         // TODO: Make sure the Notification Alarm can handle device reboots
     }
 }
+
