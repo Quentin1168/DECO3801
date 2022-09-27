@@ -106,23 +106,7 @@ public class MainActivity2 extends AppCompatActivity {
         edit.putInt("currentAmountLeftToDrink", recommendedIntake);
 
         edit.apply();
-        // NFC testing
-        context = this;
 
-
-        nfcAdapter =  NfcAdapter.getDefaultAdapter(this);
-        if (nfcAdapter ==  null) {
-            Toast.makeText(this, "This device doesn't support nfc", Toast.LENGTH_SHORT).show();
-
-        }
-
-        readfromIntent(getIntent());
-        pendingIntent =
-                PendingIntent.getActivity(this, 0,
-                        new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), 0);
-
-        IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
-        tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
         // writingTagFilters = new IntentFilter[] { tagDetected };
         // The total amount of water to drink initially
         TextView amountToDrink = findViewById(R.id.amountToDrink);
