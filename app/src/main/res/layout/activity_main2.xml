@@ -60,6 +60,7 @@
 
     <me.itangqi.waveloadingview.WaveLoadingView
         android:id="@+id/textView3"
+
         android:layout_width="293dp"
         android:layout_height="290dp"
         android:layout_marginStart="80dp"
@@ -77,6 +78,7 @@
 
     <SeekBar
         android:id="@+id/seekBar"
+        android:visibility="invisible"
         android:enabled="false"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
