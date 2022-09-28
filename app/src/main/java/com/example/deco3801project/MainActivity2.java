@@ -303,5 +303,13 @@ public class MainActivity2 extends AppCompatActivity {
 
         // TODO: Make sure the Notification Alarm can handle device reboots
     }
+
+    // Handles NFC read
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+    }
+
 }
 
