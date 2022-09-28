@@ -139,7 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:backgroundTint="#DFDFDF"
+            android:background="@android:color/transparent"
             android:contentDescription="Timer"
             app:srcCompat="@drawable/ic_timer" />
 
@@ -148,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:backgroundTint="#DFDFDF"
+            android:background="@android:color/transparent"
             android:contentDescription="Calendar"
             app:srcCompat="@drawable/ic_calendar" />
 
@@ -167,7 +167,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:backgroundTint="#FFFFFF"
+            android:background="@android:color/transparent"
             android:contentDescription="Setting"
             app:srcCompat="@drawable/ic_setting" />
 
@@ -176,7 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:backgroundTint="#FFFFFF"
+            android:background="@android:color/transparent"
             android:contentDescription="Reward"
             app:srcCompat="@drawable/ic_reward" />
     </LinearLayout>
