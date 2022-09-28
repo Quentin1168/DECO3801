@@ -164,23 +164,7 @@ public class MainActivity2 extends AppCompatActivity {
         setNotificationToIntervals(notification);
     }
 
-    private void readfromIntent(Intent intent) {
-        String action = intent.getAction();
-        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)
-                || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
-                || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action))  {
-            if (running == 0) {
-                timer.runTimer();
-                running++;
-            }
-            else if (running == 1) {
-                timer.reset();
-                running = 0;
-                System.out.println(timer.getPrevSeconds());
-            }
 
-        }
-    }
 
 
 
@@ -308,6 +292,16 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+
+        if (running == 0) {
+            timer.runTimer();
+            running++;
+        }
+        else if (running == 1) {
+            timer.reset();
+            running = 0;
+            System.out.println(timer.getPrevSeconds());
+        }
 
     }
 
