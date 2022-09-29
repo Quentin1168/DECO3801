@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     SharedPreferences pref;
+    SharedPreferences checkAppStart = null;    // Check app start times
 
     private EditText ageInput;
     private EditText intakeInput;
@@ -46,9 +47,17 @@ public class MainActivity extends AppCompatActivity {
         // Creates a notification channel for the app's notifications
         createNotificationChannel();
 
+        checkAppStart = getSharedPreferences("com.example.deco3801project", MODE_PRIVATE);
         // Slider Intro
-        Intent i = new Intent(getApplicationContext(),MainActivity3.class);
-        startActivity(i);
+        if (checkAppStart.getBoolean("firstrun", true)) {
+            Intent i = new Intent(getApplicationContext(), MainActivity3.class);
+            startActivity(i);
+            checkAppStart.edit().putBoolean("firstrun", false).commit();
+        } else {
+            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            startActivity(intent);
+        }
+
 
         String masterKeyAlias = null;
         try {
