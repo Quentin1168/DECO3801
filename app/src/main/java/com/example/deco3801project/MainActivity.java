@@ -4,24 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
-import androidx.viewpager.widget.ViewPager;
 
-import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.util.Log;
+
 
 import java.io.IOException;
 import java.lang.String;
@@ -49,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
         checkAppStart = getSharedPreferences("com.example.deco3801project", MODE_PRIVATE);
         // Slider Intro
-        if (checkAppStart.getBoolean("firstrun", true)) {
+        if (checkAppStart.getBoolean("firstrun", true)) {   // if it is first run
             Intent i = new Intent(getApplicationContext(), MainActivity3.class);
             startActivity(i);
-            checkAppStart.edit().putBoolean("firstrun", false).commit();
+            checkAppStart.edit().putBoolean("firstrun", false).commit();    // make param to be false
         } else {
             Intent intent = new Intent(MainActivity.this, MainActivity2.class);
             startActivity(intent);

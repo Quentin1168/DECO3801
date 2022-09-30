@@ -120,43 +120,7 @@ public class MainActivity2 extends AppCompatActivity {
         continueButton = findViewById(R.id.add_button);
         drinkInput.addTextChangedListener(continueTextWatcher);
 
-        SeekBar seekBar = findViewById(R.id.seekBar);
-        seekBar.setMax(100); // Sets the water height to 100%
 
-        WaveLoadingView waveLoadingView = findViewById(R.id.textView3);
-
-        seekBar.setEnabled(false);
-
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                waveLoadingView.setProgressValue(i);
-
-                // Show % of the wave
-                String title = String.valueOf(i);
-                waveLoadingView.setBottomTitle("");
-                waveLoadingView.setCenterTitle("");
-                waveLoadingView.setTopTitle("");
-
-                if (i < 50) {
-                    waveLoadingView.setBottomTitle(title);  // % show in the bottom part of wave
-                } else if (i == 50) {
-                    waveLoadingView.setCenterTitle(title);
-                } else {
-                    waveLoadingView.setTopTitle(title);
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
         // Build and call the Notification for testing
         Notification notification = buildNotification();
@@ -249,6 +213,7 @@ public class MainActivity2 extends AppCompatActivity {
                 .setContentText("You should drink some water soon if you haven't yet!")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
+                .setVibrate( new long []{ 1000 , 1000 , 1000 , 1000})
                 .setAutoCancel(true);
 
         return notificationBuilder.build();

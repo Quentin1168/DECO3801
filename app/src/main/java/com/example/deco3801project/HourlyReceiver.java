@@ -1,15 +1,12 @@
 package com.example.deco3801project;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 public class HourlyReceiver extends BroadcastReceiver {
     public static final int NOTIFICATION_ID = 1;
