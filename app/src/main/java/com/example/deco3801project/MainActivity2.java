@@ -300,7 +300,8 @@ public class MainActivity2 extends AppCompatActivity {
         else if (running == 1) {
             timer.reset();
             running = 0;
-            System.out.println(timer.getPrevSeconds());
+            TextView time = findViewById(R.id.textView2);
+            time.setText(String.valueOf(timer.getPrevSeconds()));
         }
 
     }
