@@ -162,6 +162,7 @@ public class MainActivity2 extends AppCompatActivity {
         Notification notification = buildNotification();
         callNotification(notification);
         setNotificationToIntervals(notification);
+        measureTime(getIntent());
     }
 
 
@@ -293,9 +294,14 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
+        measureTime(intent);
+
+    }
+
+    private void measureTime(Intent intent) {
         if (running == 0) {
             timer.runTimer();
-            running++;
+            running = 1;
         }
         else if (running == 1) {
             timer.reset();
@@ -303,7 +309,6 @@ public class MainActivity2 extends AppCompatActivity {
             TextView time = findViewById(R.id.textView2);
             time.setText(String.valueOf(timer.getPrevSeconds()));
         }
-
     }
 
 }
