@@ -264,8 +264,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private void measureTime(Intent intent) {
-        Toast.makeText(context, "This is my Toast message!",
-                Toast.LENGTH_LONG).show();
+
         if (running == 0) {
             timer.runTimer();
             running = 1;
