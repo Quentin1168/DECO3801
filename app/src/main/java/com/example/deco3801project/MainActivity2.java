@@ -8,6 +8,7 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -62,11 +63,13 @@ public class MainActivity2 extends AppCompatActivity {
 
     NfcAdapter nfcAdapter;
     PendingIntent pendingIntent;
-    Context context;
-    int running = 0;
-    StopWatch timer = new StopWatch();
+    Context context = this;
+    StopWatch timer;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Toast.makeText(context, "onCreate called", Toast.LENGTH_LONG).show();
         super.onCreate(savedInstanceState);
 
         // Get current date in format dd
@@ -104,7 +107,6 @@ public class MainActivity2 extends AppCompatActivity {
         // Create a new sharedPref called amountLeftToDrink that will be edited later on
         SharedPreferences.Editor edit = pref.edit();
         edit.putInt("currentAmountLeftToDrink", recommendedIntake);
-
         edit.apply();
 
         // writingTagFilters = new IntentFilter[] { tagDetected };
@@ -121,7 +123,7 @@ public class MainActivity2 extends AppCompatActivity {
         drinkInput.addTextChangedListener(continueTextWatcher);
 
 
-
+        timer = new StopWatch();
         // Build and call the Notification for testing
         Notification notification = buildNotification();
         callNotification(notification);
@@ -254,6 +256,12 @@ public class MainActivity2 extends AppCompatActivity {
         // TODO: Make sure the Notification Alarm can handle device reboots
     }
 
+    //private void setTimerFlag(boolean flag) {
+      //  if (flag == true) {
+
+        //}
+    //}
+
     // Handles NFC read
     @Override
     protected void onNewIntent(Intent intent) {
@@ -265,13 +273,19 @@ public class MainActivity2 extends AppCompatActivity {
 
     private void measureTime(Intent intent) {
 
+        int running = pref.getInt("running", 0);
+        Toast.makeText(context, String.valueOf(running), Toast.LENGTH_LONG).show();
+        SharedPreferences.Editor edit = pref.edit();
         if (running == 0) {
             timer.runTimer();
-            running = 1;
+
+            edit.putInt("running", 1);
+            edit.apply();
         }
         else if (running == 1) {
             timer.reset();
-            running = 0;
+            edit.putInt("running", 0);
+            edit.apply();
             TextView time = findViewById(R.id.textView2);
             time.setText(String.valueOf(timer.getPrevSeconds()));
         }
