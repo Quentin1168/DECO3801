@@ -11,8 +11,10 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -38,7 +40,7 @@ import me.itangqi.waveloadingview.WaveLoadingView;
 
 
 
-public class MainActivity2 extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity  {
 
     SharedPreferences pref;
     private EditText drinkInput;
@@ -46,7 +48,7 @@ public class MainActivity2 extends AppCompatActivity {
     private int recommendedIntake;
 
     Context context = this;
-    StopWatch timer;
+    StopWatch timer =  new StopWatch();
 
 
     @Override
@@ -107,14 +109,15 @@ public class MainActivity2 extends AppCompatActivity {
         drinkInput.addTextChangedListener(continueTextWatcher);
 
 
-        timer = new StopWatch();
         // Build and call the Notification for testing
         Notification notification = buildNotification();
         callNotification(notification);
         setNotificationToIntervals(notification);
+
+
+
         measureTime(getIntent());
     }
-
 
 
 
@@ -239,38 +242,38 @@ public class MainActivity2 extends AppCompatActivity {
         // TODO: Make sure the Notification Alarm can handle device reboots
     }
 
-    //private void setTimerFlag(boolean flag) {
-      //  if (flag == true) {
 
-        //}
-    //}
-
-    // Handles NFC read
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
+
         measureTime(intent);
+
+
 
     }
 
     private void measureTime(Intent intent) {
+        if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction()) ||
+                NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()) ||
+                NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            int running = pref.getInt("running", 0);
+            Toast.makeText(context, String.valueOf(running), Toast.LENGTH_LONG).show();
+            SharedPreferences.Editor edit = pref.edit();
+            if (running == 0) {
+                timer.runTimer();
 
-        int running = pref.getInt("running", 0);
-        Toast.makeText(context, String.valueOf(running), Toast.LENGTH_LONG).show();
-        SharedPreferences.Editor edit = pref.edit();
-        if (running == 0) {
-            timer.runTimer();
+                edit.putInt("running", 1);
+                edit.apply();
+            } else if (running == 1) {
+                timer.reset();
+                edit.putInt("running", 0);
+                edit.apply();
+                TextView time = findViewById(R.id.textView2);
+                time.setText(String.valueOf(timer.getPrevSeconds()));
+            }
 
-            edit.putInt("running", 1);
-            edit.apply();
-        }
-        else if (running == 1) {
-            timer.reset();
-            edit.putInt("running", 0);
-            edit.apply();
-            TextView time = findViewById(R.id.textView2);
-            time.setText(String.valueOf(timer.getPrevSeconds()));
         }
     }
 

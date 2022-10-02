@@ -4,7 +4,9 @@
     package="com.example.deco3801project">
 
     <uses-permission android:name="android.permission.NFC" />
-    <uses-feature android:name="android.hardware.nfc" />
+    <uses-feature
+        android:name="android.hardware.nfc"
+        />
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
