@@ -6,24 +6,15 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -33,9 +24,6 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.text.DateFormat;
@@ -57,12 +45,6 @@ public class MainActivity2 extends AppCompatActivity {
     private Button continueButton;
     private int recommendedIntake;
 
-    public static final String Error_Detected = "No NFC Tag Detected";
-    public static final String Write_Sucess = "Text Successfully Written";
-    public static final String Write_Error = "Error During Writing, Try Again";
-
-    NfcAdapter nfcAdapter;
-    PendingIntent pendingIntent;
     Context context = this;
     StopWatch timer;
 
@@ -106,13 +88,15 @@ public class MainActivity2 extends AppCompatActivity {
 
         // Create a new sharedPref called amountLeftToDrink that will be edited later on
         SharedPreferences.Editor edit = pref.edit();
-        edit.putInt("currentAmountLeftToDrink", recommendedIntake);
+        if (!pref.contains("currentAmountLeftToDrink")) {
+            edit.putInt("currentAmountLeftToDrink", recommendedIntake);
+        }
         edit.apply();
 
         // writingTagFilters = new IntentFilter[] { tagDetected };
         // The total amount of water to drink initially
         TextView amountToDrink = findViewById(R.id.amountToDrink);
-        amountToDrink.setText(String.valueOf(recommendedIntake));
+        amountToDrink.setText(String.valueOf(pref.getInt("currentAmountLeftToDrink", 0)));
 
         // The percentage of the amount left to drink
         TextView amountToDrinkPercent = findViewById(R.id.amountToDrinkPercentage);
@@ -190,8 +174,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     protected double calculate_remaining_percentage(int currentAmountLeftToDrink) {
         recommendedIntake = pref.getInt("recommendedIntake", 0);
-        double percentage = 100 * ((double) currentAmountLeftToDrink / (double) recommendedIntake);
-        return percentage;
+        return 100 * ((double) currentAmountLeftToDrink / (double) recommendedIntake);
     }
 
     protected int subtract_intake(int currentAmountLeftToDrink, int drink)
