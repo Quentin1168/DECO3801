@@ -114,9 +114,7 @@ public class MainActivity2 extends AppCompatActivity  {
         callNotification(notification);
         setNotificationToIntervals(notification);
 
-
-
-        measureTime(getIntent());
+        // measureTime(getIntent());
     }
 
 
@@ -246,12 +244,7 @@ public class MainActivity2 extends AppCompatActivity  {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
-
         measureTime(intent);
-
-
-
     }
 
     private void measureTime(Intent intent) {

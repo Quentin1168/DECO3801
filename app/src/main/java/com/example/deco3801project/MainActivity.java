@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             checkAppStart.edit().putBoolean("firstrun", false).commit();    // make param to be false
         } else {
             Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         }
 
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         edit.apply();
 
         Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 

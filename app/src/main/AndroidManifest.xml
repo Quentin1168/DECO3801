@@ -33,7 +33,7 @@
             android:name=".MainActivity3"
             android:exported="false" />
         <activity
-            android:launchMode="singleTop"
+            android:launchMode="singleInstance"
             android:name=".MainActivity2"
             android:exported="true" >
             <intent-filter>
