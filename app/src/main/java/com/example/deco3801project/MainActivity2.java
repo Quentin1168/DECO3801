@@ -100,11 +100,35 @@ public class MainActivity2 extends AppCompatActivity  {
 
         // The percentage of the amount left to drink
         TextView amountToDrinkPercent = findViewById(R.id.amountToDrinkPercentage);
-        amountToDrinkPercent.setText("0%");
+        amountToDrinkPercent.setText(String.valueOf(calculate_remaining_percentage(pref.getInt("currentAmountLeftToDrink", 0))).concat("%"));
 
         drinkInput = findViewById(R.id.drinkText);
         continueButton = findViewById(R.id.add_button);
         drinkInput.addTextChangedListener(continueTextWatcher);
+
+        SeekBar seekBar = findViewById(R.id.seekBar);
+        seekBar.setMax(100); // Sets the water height to 100%
+
+        WaveLoadingView waveLoadingView = findViewById(R.id.textView3);
+
+        seekBar.setEnabled(false);
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                waveLoadingView.setProgressValue(i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
 
         // Build and call the Notification for testing
@@ -114,9 +138,6 @@ public class MainActivity2 extends AppCompatActivity  {
 
         // measureTime(getIntent());
     }
-
-
-
 
     private TextWatcher continueTextWatcher = new TextWatcher() {
         @Override
@@ -138,6 +159,7 @@ public class MainActivity2 extends AppCompatActivity  {
             int currentAmountLeftToDrink = pref.getInt("currentAmountLeftToDrink", 0);
             double percentageRemaining = calculate_remaining_percentage(currentAmountLeftToDrink);
             seekBar.setProgress((int) percentageRemaining, true);
+            System.out.println(seekBar.getProgress());
         }
     };
 
