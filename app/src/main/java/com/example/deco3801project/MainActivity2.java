@@ -193,13 +193,14 @@ public class MainActivity2 extends AppCompatActivity  {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
+        long[] vibrationPattern = {1000 , 1000 , 1000 , 1000};
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "1")
                 .setSmallIcon(R.drawable.ic_baseline_local_drink_24)
                 .setContentTitle("Drink Water!")
                 .setContentText("You should drink some water soon if you haven't yet!")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
-                .setVibrate( new long []{ 1000 , 1000 , 1000 , 1000})
+                .setVibrate(vibrationPattern)
                 .setAutoCancel(true);
 
         return notificationBuilder.build();
@@ -235,9 +236,7 @@ public class MainActivity2 extends AppCompatActivity  {
         alarmManager.setWindow(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(),
                 12 * 60 * 60 * 1000, pendingIntent);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                60 * 60 * 1000, pendingIntent); // make the alarm repeat every hour (every second for testing)
-
-        // TODO: Make sure the Notification Alarm can handle device reboots
+                60 * 60 * 1000, pendingIntent); // make the alarm repeat every hour
     }
 
 
