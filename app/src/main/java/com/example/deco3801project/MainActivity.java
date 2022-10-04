@@ -191,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel("1", name, importance);
+            channel.enableVibration(true);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviours after this
