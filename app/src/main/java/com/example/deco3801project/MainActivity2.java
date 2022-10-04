@@ -100,7 +100,7 @@ public class MainActivity2 extends AppCompatActivity  {
 
         // The percentage of the amount left to drink
         TextView amountToDrinkPercent = findViewById(R.id.amountToDrinkPercentage);
-        amountToDrinkPercent.setText(String.valueOf(calculate_remaining_percentage(pref.getInt("currentAmountLeftToDrink", 0))).concat("%"));
+        amountToDrinkPercent.setText(String.valueOf((int) calculate_remaining_percentage(pref.getInt("currentAmountLeftToDrink", 0))).concat("%"));
 
         drinkInput = findViewById(R.id.drinkText);
         continueButton = findViewById(R.id.add_button);
@@ -189,7 +189,7 @@ public class MainActivity2 extends AppCompatActivity  {
         // Update the TextViews' texts appropriately
         amountToDrink.setText(String.valueOf(currentAmountLeftToDrink));
         double percentageRemaining = calculate_remaining_percentage(currentAmountLeftToDrink);
-        amountToDrinkPercent.setText(String.valueOf(percentageRemaining).concat("%"));
+        amountToDrinkPercent.setText(String.valueOf((int) percentageRemaining).concat("%"));
         drinkInput.setText("");
     }
 
