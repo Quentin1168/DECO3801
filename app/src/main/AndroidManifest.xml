@@ -4,12 +4,11 @@
     package="com.example.deco3801project">
 
     <uses-permission android:name="android.permission.NFC" />
-    <uses-feature
-        android:name="android.hardware.nfc"
-        />
-    <uses-permission android:name="android.permission.VIBRATE"/>
 
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-feature android:name="android.hardware.nfc" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +20,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DECO3801Project"
         tools:targetApi="31">
+        <activity
+            android:name=".WriteNFC"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <receiver
             android:name=".HourlyReceiver"
             android:enabled="true"
@@ -29,16 +36,18 @@
                 <action android:name="android.intent.action.NOTIFY" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name=".MainActivity3"
             android:exported="false" />
         <activity
-            android:launchMode="singleInstance"
             android:name=".MainActivity2"
-            android:exported="true" >
+            android:exported="true"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
             </intent-filter>
+
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
@@ -48,11 +57,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER"/>
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
     </application>
 
 </manifest>
