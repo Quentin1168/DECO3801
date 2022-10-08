@@ -173,13 +173,13 @@
             app:srcCompat="@drawable/ic_setting" />
 
         <ImageButton
-            android:id="@+id/btnReward"
+            android:id="@+id/btnNFC"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="Reward"
-            app:srcCompat="@drawable/ic_reward" />
+            android:contentDescription="NFC"
+            app:srcCompat="@drawable/icons8_nfc_others_96" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
