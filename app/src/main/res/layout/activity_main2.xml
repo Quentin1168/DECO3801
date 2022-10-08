@@ -61,7 +61,6 @@
 
     <me.itangqi.waveloadingview.WaveLoadingView
         android:id="@+id/textView3"
-
         android:layout_width="293dp"
         android:layout_height="290dp"
         android:layout_marginStart="80dp"
@@ -160,8 +159,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/btnSetting"

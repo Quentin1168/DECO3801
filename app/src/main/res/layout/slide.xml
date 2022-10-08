@@ -31,7 +31,7 @@
             android:padding="16dp"
             android:text="Title Here"
             android:textAlignment="center"
-            android:textColor="#000"
+            android:textColor="#005F89"
             android:textSize="34sp"
             android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
             android:padding="16dp"
             android:text="description here"
             android:textAlignment="center"
-            android:textColor="#000"
+            android:textColor="#005F89"
             android:textSize="20sp" />
 
 

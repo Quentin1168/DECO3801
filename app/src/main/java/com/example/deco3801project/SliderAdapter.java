@@ -32,22 +32,23 @@ public class SliderAdapter extends PagerAdapter {
     // Text buttons
     public String[] buttonsArray = {"","","Get Started!"};
     // Use this to place images on top of background
-    public int[] imagesArray = {R.drawable.drinkwater, R.drawable.nfcbottle, R.drawable.carryit};
+    public int[] imagesArray = {R.drawable.img_drinkup, R.drawable.img_nfcbottle, R.drawable.img_carryit};
     // Title message & description array
-    public String[] titleArray = {"Welcome!","Less hassle with our Smart Bottle","Start Today!"};
-    public String[] descriptionArray = {"Our smart water bottle & app are simpler and better",
+    public String[] titleArray = {"Welcome to the Smart Bottle & APP","Less hassle with our Smart Bottle","Start Today!"};
+    public String[] descriptionArray = {"Our smart water bottle & app encourage you to drink more water",
             "Our smart bottle automatically gets your water intake",
             "Just with your age and gender, or your essential daily water intake"};
-    public int[] backgroundColourArray = {Color.LTGRAY, Color.LTGRAY, Color.LTGRAY};
+    public int[] backgroundColourArray = {Color.rgb(230, 236, 235),
+            Color.rgb(230, 236, 235), Color.rgb(230, 236, 235)};
 
     public SliderAdapter(Context context) {
         this.context = context;
         res = this.context.getResources();
         this.bgImages = new Drawable[3];
         this.bgImages = setBgImages();
-        bgImage1 = ResourcesCompat.getDrawable(res, R.drawable.drinkwater, null);
-        bgImage2 = ResourcesCompat.getDrawable(res, R.drawable.nfcbottle, null);
-        bgImage3 = ResourcesCompat.getDrawable(res, R.drawable.carryit, null);
+        bgImage1 = ResourcesCompat.getDrawable(res, R.drawable.img_drinkup, null);
+        bgImage2 = ResourcesCompat.getDrawable(res, R.drawable.img_nfcbottle, null);
+        bgImage3 = ResourcesCompat.getDrawable(res, R.drawable.img_carryit, null);
     }
 
     // set background images to an array if we want to use in slider
