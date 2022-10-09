@@ -35,7 +35,7 @@ public class WriteNFC extends AppCompatActivity {
                 this,
                 0,
                 intent,
-                0
+                PendingIntent.FLAG_IMMUTABLE
         );
         adapter = NfcAdapter.getDefaultAdapter(this);
 
