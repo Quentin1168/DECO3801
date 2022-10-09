@@ -5,10 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.nfc.FormatException;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import java.io.IOException;
 
 public class WriteNFC extends AppCompatActivity {
     private PendingIntent pendingIntent;
@@ -48,5 +56,36 @@ public class WriteNFC extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         adapter.disableForegroundDispatch(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        NdefRecord aar = NdefRecord.createApplicationRecord("com.example.deco3801project");
+        NdefRecord[] records = new NdefRecord[]{
+                aar
+        };
+        NdefMessage message = new NdefMessage(records);
+        if (tag != null) {
+            try {
+                Ndef ndef = Ndef.get(tag);
+                if (ndef == null) {
+                    NdefFormatable ndefFormatable = NdefFormatable.get(tag);
+                    if (ndefFormatable != null) {
+                        ndefFormatable.connect();
+                        ndefFormatable.format(message);
+                        ndefFormatable.close();
+                        Toast.makeText(this, "Formatted and written",
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, "This tag is not supported",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            } catch (IOException | FormatException e) {
+                throw new RuntimeException();
+            }
+        }
     }
 }
