@@ -289,5 +289,10 @@ public class MainActivity2 extends AppCompatActivity  {
         }
     }
 
+    public void handleNFCButton (View v) { // This function runs when NFC button is pressed
+        Intent intent = new Intent(getApplicationContext(), WriteNFC.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+    }
 }
 

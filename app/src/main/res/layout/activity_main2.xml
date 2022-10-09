@@ -179,6 +179,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:contentDescription="NFC"
+            android:onClick="handleNFCButton"
             app:srcCompat="@drawable/icons8_nfc_others_96" />
     </LinearLayout>
 
