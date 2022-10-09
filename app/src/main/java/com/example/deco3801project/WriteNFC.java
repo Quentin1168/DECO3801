@@ -1,5 +1,6 @@
 package com.example.deco3801project;
 
+import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.PendingIntent;
@@ -28,8 +29,15 @@ public class WriteNFC extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_nfc);
+        adapter = NfcAdapter.getDefaultAdapter(this);
+        if (adapter == null) {
+            Intent i = new Intent(WriteNFC.this, MainActivity2.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            Toast.makeText(this, "Device not supported", Toast.LENGTH_LONG).show();
+            startActivity(i);
+        }
         writeFilter = new IntentFilter[]{};
-        Intent intent =new Intent(this, getClass());
+        Intent intent = new Intent(this, getClass());
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         pendingIntent = PendingIntent.getActivity(
                 this,
@@ -37,8 +45,6 @@ public class WriteNFC extends AppCompatActivity {
                 intent,
                 PendingIntent.FLAG_IMMUTABLE
         );
-        adapter = NfcAdapter.getDefaultAdapter(this);
-
         writeTechList = new String[][] {
                 {Ndef.class.getName()},
                 {NdefFormatable.class.getName()}
@@ -49,13 +55,15 @@ public class WriteNFC extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         adapter.enableForegroundDispatch(this, pendingIntent,
-                writeFilter, writeTechList);
+                    writeFilter, writeTechList);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        adapter.disableForegroundDispatch(this);
+        if (adapter != null) {
+            adapter.disableForegroundDispatch(this);
+        }
     }
 
     @Override
