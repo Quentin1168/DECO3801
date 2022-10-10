@@ -1,6 +1,5 @@
 package com.example.deco3801project;
 
-import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.PendingIntent;
@@ -9,7 +8,6 @@ import android.content.IntentFilter;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
-import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
@@ -69,6 +67,7 @@ public class WriteNFC extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        Toast.makeText(this, "Tag detected", Toast.LENGTH_LONG).show();
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         NdefRecord aar = NdefRecord.createApplicationRecord("com.example.deco3801project");
         NdefRecord[] records = new NdefRecord[]{
