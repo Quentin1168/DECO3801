@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 
 public class WriteNFC extends AppCompatActivity {
@@ -110,9 +112,9 @@ public class WriteNFC extends AppCompatActivity {
     }
 
     public void handleWrite(View v) {
-        String domain = "com.example.deco3801project"; //usually your app's package name
-        String type = "externalType";
-        NdefRecord extRecord = NdefRecord.createExternal(domain, type, null);
+        NdefRecord mimeRecord =
+                NdefRecord.createMime("application/vnd.com.example.deco3801project",
+                "Android NFC".getBytes(StandardCharsets.US_ASCII));
         SwitchCompat switchView = findViewById(R.id.switch1);
         NdefRecord[] records;
         SharedPreferences.Editor edit = pref.edit();
@@ -124,11 +126,11 @@ public class WriteNFC extends AppCompatActivity {
                     bluetooth.getText().toString());
             records = new NdefRecord[]{
                     address,
-                    extRecord
+                    mimeRecord
             };
         } else {
             records = new NdefRecord[]{
-                    extRecord
+                    mimeRecord
             };
         }
         NdefMessage message = new NdefMessage(records);
