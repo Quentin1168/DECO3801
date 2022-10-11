@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -42,7 +43,6 @@ public class MainActivity2 extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Toast.makeText(context, "onCreate called", Toast.LENGTH_LONG).show();
         super.onCreate(savedInstanceState);
         checkAppStart = getSharedPreferences("com.example.deco3801project", MODE_PRIVATE);
         // Slider Intro
@@ -284,6 +284,7 @@ public class MainActivity2 extends AppCompatActivity  {
     public void handleNFCButton (View v) { // This function runs when NFC button is pressed
         Intent intent = new Intent(MainActivity2.this, WriteNFC.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra("sp", (Parcelable)pref);
         startActivity(intent);
     }
 }

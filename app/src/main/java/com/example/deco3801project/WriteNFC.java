@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -17,7 +18,6 @@ import android.nfc.tech.NdefFormatable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,11 +29,14 @@ public class WriteNFC extends AppCompatActivity {
     private IntentFilter[] writeFilter;
     private String[][] writeTechList;
     private Tag tag;
+    private SharedPreferences pref;
 
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent startIntent = getIntent();
+        pref = startIntent.getParcelableExtra("sp");
         setContentView(R.layout.activity_write_nfc);
         adapter = NfcAdapter.getDefaultAdapter(this);
         if (adapter == null) {
@@ -83,9 +86,11 @@ public class WriteNFC extends AppCompatActivity {
     public void handleWrite(View v) {
         NdefRecord app =
                 NdefRecord.createUri("https://com.example.deco3801project");
-
         SwitchCompat switchView = findViewById(R.id.switch1);
         NdefRecord[] records;
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putBoolean("Bluetooth", switchView.isChecked());
+        edit.apply();
         if (switchView.isChecked()) {
             TextView bluetooth = findViewById(R.id.editTextBluetooth);
             NdefRecord address = NdefRecord.createTextRecord("en",
