@@ -20,15 +20,15 @@ public class MainActivity3 extends AppCompatActivity {
 
 
         // Show slides
-        viewPager = (ViewPager)findViewById(R.id.viewpager);
+        viewPager = findViewById(R.id.viewpager);
         sliderAdapter = new SliderAdapter(this);
         viewPager.setAdapter(sliderAdapter);
 
         // Finish this activity and back to where it was intended
         //button = (Button) findViewById(R.id.close_button);
-        TextView txtButton = (TextView) findViewById(R.id.txtButtonClickable);
+        TextView txtButton = findViewById(R.id.txtButtonClickable);
         txtButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         });
