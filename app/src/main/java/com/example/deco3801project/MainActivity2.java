@@ -24,6 +24,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.GeneralSecurityException;
 import java.util.Calendar;
 // https://github.com/tangqi92/WaveLoadingView for the code of wave function
@@ -31,7 +32,7 @@ import me.itangqi.waveloadingview.WaveLoadingView;
 
 public class MainActivity2 extends AppCompatActivity  {
 
-    SharedPreferences pref;
+    protected SharedPreferences pref;
     private EditText drinkInput;
     private Button continueButton;
     private int recommendedIntake;
@@ -285,7 +286,6 @@ public class MainActivity2 extends AppCompatActivity  {
     public void handleNFCButton (View v) { // This function runs when NFC button is pressed
         Intent intent = new Intent(MainActivity2.this, WriteNFC.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.putExtra("sp", (Parcelable)pref);
         startActivity(intent);
     }
 }

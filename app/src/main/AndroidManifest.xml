@@ -47,9 +47,11 @@
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="https"
-                    android:host="com.example.deco3801project"/>
+                <data android:scheme="vnd.android.nfc"
+                    android:host="ext"
+                    android:pathPrefix="/com.example.deco3801project:externalType"/>
             </intent-filter>
+
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

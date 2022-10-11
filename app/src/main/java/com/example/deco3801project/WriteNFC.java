@@ -3,7 +3,8 @@ package com.example.deco3801project;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class WriteNFC extends AppCompatActivity {
     private PendingIntent pendingIntent;
@@ -36,7 +38,31 @@ public class WriteNFC extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent startIntent = getIntent();
-        pref = startIntent.getParcelableExtra("sp");
+
+        String masterKeyAlias = null;
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.notify();
+        }
+
+        try {
+            assert masterKeyAlias != null;
+            pref = EncryptedSharedPreferences.create(
+                    "secret_shared_prefs",
+                    masterKeyAlias,
+                    getApplicationContext(),
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.notify();
+        }
+
         setContentView(R.layout.activity_write_nfc);
         adapter = NfcAdapter.getDefaultAdapter(this);
         if (adapter == null) {
@@ -84,8 +110,9 @@ public class WriteNFC extends AppCompatActivity {
     }
 
     public void handleWrite(View v) {
-        NdefRecord app =
-                NdefRecord.createUri("https://com.example.deco3801project");
+        String domain = "com.example.deco3801project"; //usually your app's package name
+        String type = "externalType";
+        NdefRecord extRecord = NdefRecord.createExternal(domain, type, null);
         SwitchCompat switchView = findViewById(R.id.switch1);
         NdefRecord[] records;
         SharedPreferences.Editor edit = pref.edit();
@@ -97,11 +124,11 @@ public class WriteNFC extends AppCompatActivity {
                     bluetooth.getText().toString());
             records = new NdefRecord[]{
                     address,
-                    app
+                    extRecord
             };
         } else {
             records = new NdefRecord[]{
-                    app
+                    extRecord
             };
         }
         NdefMessage message = new NdefMessage(records);
