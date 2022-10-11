@@ -1,5 +1,4 @@
 package com.example.deco3801project;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -17,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,17 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-/**
- * See https://github.com/tangqi92/WaveLoadingView for the code of wave function
- * external library
- */
+// https://github.com/tangqi92/WaveLoadingView for the code of wave function
 import me.itangqi.waveloadingview.WaveLoadingView;
-
-
 
 public class MainActivity2 extends AppCompatActivity  {
 
@@ -44,6 +34,7 @@ public class MainActivity2 extends AppCompatActivity  {
     private EditText drinkInput;
     private Button continueButton;
     private int recommendedIntake;
+    SharedPreferences checkAppStart = null;    // Check app start times
 
     Context context = this;
     StopWatch timer =  new StopWatch();
@@ -53,11 +44,13 @@ public class MainActivity2 extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         //Toast.makeText(context, "onCreate called", Toast.LENGTH_LONG).show();
         super.onCreate(savedInstanceState);
-
-        // Get current date in format dd
-        DateFormat df = new SimpleDateFormat("dd");
-        String date = df.format(Calendar.getInstance().getTime());
-        Log.d("date", date);
+        checkAppStart = getSharedPreferences("com.example.deco3801project", MODE_PRIVATE);
+        // Slider Intro
+        if (checkAppStart.getBoolean("first-run", true)) {   // if it is first run
+            Intent i = new Intent(getApplicationContext(), MainActivity3.class);
+            startActivity(i);
+            checkAppStart.edit().putBoolean("first-run", false).apply();    // make param to be false
+        }
 
         // Encryption
         String masterKeyAlias = null;
@@ -66,10 +59,11 @@ public class MainActivity2 extends AppCompatActivity  {
         } catch (GeneralSecurityException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.notify();
         }
 
         try {
+            assert masterKeyAlias != null;
             pref = EncryptedSharedPreferences.create(
                     "secret_shared_prefs",
                     masterKeyAlias,
@@ -80,7 +74,7 @@ public class MainActivity2 extends AppCompatActivity  {
         } catch (GeneralSecurityException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.notify();
         }
 
         setContentView(R.layout.activity_main2);
@@ -139,7 +133,7 @@ public class MainActivity2 extends AppCompatActivity  {
         // measureTime(getIntent());
     }
 
-    private TextWatcher continueTextWatcher = new TextWatcher() {
+    private final TextWatcher continueTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -175,7 +169,7 @@ public class MainActivity2 extends AppCompatActivity  {
         try {
             currentAmountLeftToDrink = subtract_intake(currentAmountLeftToDrink, drink);
         } catch (IllegalArgumentException e) {
-
+            e.printStackTrace();
         }
         // Update the current amount left to drink
         SharedPreferences.Editor edit = pref.edit();
@@ -236,11 +230,9 @@ public class MainActivity2 extends AppCompatActivity  {
     private void setNotificationToIntervals(Notification notification) {
         // Set the Notification created to fire up at regular intervals
         Intent intent = new Intent(this, HourlyReceiver.class);
-
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
                         PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-
         // Set the alarm to start at 8 AM and to repeat every hour afterwards until 8 PM
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());

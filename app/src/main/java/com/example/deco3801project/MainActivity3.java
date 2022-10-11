@@ -3,17 +3,14 @@ package com.example.deco3801project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.telecom.TelecomManager;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity3 extends AppCompatActivity {
 
     ViewPager viewPager;
     SliderAdapter sliderAdapter;
-    private TextView txtButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +26,11 @@ public class MainActivity3 extends AppCompatActivity {
 
         // Finish this activity and back to where it was intended
         //button = (Button) findViewById(R.id.close_button);
-        txtButton = (TextView) findViewById(R.id.txtButtonClickable);
-        txtButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
+        TextView txtButton = (TextView) findViewById(R.id.txtButtonClickable);
+        txtButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
         });
 
     }

@@ -24,10 +24,7 @@ import java.security.GeneralSecurityException;
 
 
 public class MainActivity extends AppCompatActivity {
-
-
     SharedPreferences pref;
-    SharedPreferences checkAppStart = null;    // Check app start times
 
     private EditText ageInput;
     private EditText intakeInput;
@@ -42,17 +39,7 @@ public class MainActivity extends AppCompatActivity {
         // Creates a notification channel for the app's notifications
         createNotificationChannel();
 
-        checkAppStart = getSharedPreferences("com.example.deco3801project", MODE_PRIVATE);
-        // Slider Intro
-        if (checkAppStart.getBoolean("firstrun", true)) {   // if it is first run
-            Intent i = new Intent(getApplicationContext(), MainActivity3.class);
-            startActivity(i);
-            checkAppStart.edit().putBoolean("firstrun", false).commit();    // make param to be false
-        } else {
-            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-        }
+
 
 
         String masterKeyAlias = null;
@@ -62,9 +49,11 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            finish();
         }
 
         try {
+            assert masterKeyAlias != null;
             pref = EncryptedSharedPreferences.create(
                     "secret_shared_prefs",
                     masterKeyAlias,
@@ -76,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            finish();
         }
 
         ageInput = findViewById(R.id.ageText);
@@ -101,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         intakeInput.addTextChangedListener(continueTextWatcher);
     }
 
-    private TextWatcher continueTextWatcher = new TextWatcher() {
+    private final TextWatcher continueTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
