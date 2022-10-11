@@ -35,12 +35,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // Creates a notification channel for the app's notifications
         createNotificationChannel();
-
-
-
 
         String masterKeyAlias = null;
         try {
@@ -136,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         }
         edit.apply();
 
-        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }

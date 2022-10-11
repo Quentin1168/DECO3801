@@ -48,8 +48,9 @@ public class MainActivity2 extends AppCompatActivity  {
         // Slider Intro
         if (checkAppStart.getBoolean("first-run", true)) {   // if it is first run
             Intent i = new Intent(getApplicationContext(), MainActivity3.class);
-            startActivity(i);
             checkAppStart.edit().putBoolean("first-run", false).apply();    // make param to be false
+            startActivity(i);
+            finish();
         }
 
         // Encryption
@@ -83,7 +84,9 @@ public class MainActivity2 extends AppCompatActivity  {
         // Create a new sharedPref called amountLeftToDrink that will be edited later on
         SharedPreferences.Editor edit = pref.edit();
         if (!pref.contains("currentAmountLeftToDrink")) {
-            edit.putInt("currentAmountLeftToDrink", recommendedIntake);
+            if (recommendedIntake > 0) {
+                edit.putInt("currentAmountLeftToDrink", recommendedIntake);
+            }
         }
         edit.apply();
 
@@ -129,8 +132,6 @@ public class MainActivity2 extends AppCompatActivity  {
         Notification notification = buildNotification();
         callNotification(notification);
         setNotificationToIntervals(notification);
-
-        // measureTime(getIntent());
     }
 
     private final TextWatcher continueTextWatcher = new TextWatcher() {

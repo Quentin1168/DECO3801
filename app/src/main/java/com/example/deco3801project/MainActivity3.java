@@ -29,7 +29,6 @@ public class MainActivity3 extends AppCompatActivity {
         TextView txtButton = findViewById(R.id.txtButtonClickable);
         txtButton.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         });
 
