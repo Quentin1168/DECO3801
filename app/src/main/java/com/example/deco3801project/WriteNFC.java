@@ -2,6 +2,7 @@ package com.example.deco3801project;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -16,6 +17,8 @@ import android.nfc.tech.NdefFormatable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -78,11 +81,24 @@ public class WriteNFC extends AppCompatActivity {
     }
 
     public void handleWrite(View v) {
-        NdefRecord aar =
-                NdefRecord.createApplicationRecord("com.example.deco3801project");
-        NdefRecord[] records = new NdefRecord[]{
-                aar
-        };
+        NdefRecord app =
+                NdefRecord.createUri("https://com.example.deco3801project");
+
+        SwitchCompat switchView = findViewById(R.id.switch1);
+        NdefRecord[] records;
+        if (switchView.isChecked()) {
+            TextView bluetooth = findViewById(R.id.editTextBluetooth);
+            NdefRecord address = NdefRecord.createTextRecord("en",
+                    bluetooth.getText().toString());
+            records = new NdefRecord[]{
+                    address,
+                    app
+            };
+        } else {
+            records = new NdefRecord[]{
+                    app
+            };
+        }
         NdefMessage message = new NdefMessage(records);
         if (tag != null) {
             try {
