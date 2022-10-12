@@ -12,7 +12,7 @@
         android:layout_width="143dp"
         android:layout_height="52dp"
         android:onClick="handleWrite"
-        android:text="Write"
+        android:text="@string/write"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,12 +22,13 @@
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Smart Card Holder"
+        android:text="@string/smart_card_holder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.674" />
+        app:layout_constraintVertical_bias="0.674"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/editTextBluetooth"
@@ -35,7 +36,8 @@
         android:layout_height="75dp"
         android:ems="10"
         android:gravity="center"
-        android:hint="Bluetooth Address"
+        android:hint="@string/bluetooth_address"
+        android:autofillHints="bluetooth address"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

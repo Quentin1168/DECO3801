@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:showDividers="middle"
-        android:text="Recommended daily intake"
+        android:text="@string/recommended_daily_intake"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -67,7 +67,7 @@
         android:layout_marginTop="200dp"
         android:layout_marginEnd="81dp"
         android:gravity="center"
-        android:text="Amount Drunk"
+        android:text="@string/amount_drunk"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
@@ -99,7 +99,7 @@
         android:ems="10"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:hint="Enter your intake"
+        android:hint="@string/enter_your_intake"
         android:inputType="number"
         android:letterSpacing="0.0892857143"
         android:minHeight="48dp"
@@ -119,7 +119,7 @@
         android:layout_height="58dp"
         android:enabled="false"
         android:onClick="handleText"
-        android:text="Log intake"
+        android:text="@string/log_intake"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +140,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="Timer"
+            android:contentDescription="@string/timer"
             app:srcCompat="@drawable/ic_timer" />
 
         <ImageButton
@@ -149,7 +149,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="Calendar"
+            android:contentDescription="@string/calendar"
             app:srcCompat="@drawable/ic_calendar" />
 
     </LinearLayout>
@@ -169,7 +169,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="Setting"
+            android:contentDescription="@string/setting"
             app:srcCompat="@drawable/ic_setting" />
 
         <ImageButton
@@ -178,7 +178,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="NFC"
+            android:contentDescription="@string/nfc"
             android:onClick="handleNFCButton"
             app:srcCompat="@drawable/icons8_nfc_others_96" />
     </LinearLayout>

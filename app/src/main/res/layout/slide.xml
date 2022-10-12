@@ -10,6 +10,7 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:contentDescription="@string/sliding_images"
         android:id="@+id/slideimg"
         />
     <!-- android:background="@drawable/background" -->
@@ -29,7 +30,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:padding="16dp"
-            android:text="Title Here"
+            android:text="@string/title_here"
             android:textAlignment="center"
             android:textColor="#005F89"
             android:textSize="34sp"
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:padding="16dp"
-            android:text="description here"
+            android:text="@string/description_here"
             android:textAlignment="center"
             android:textColor="#005F89"
             android:textSize="20sp" />
@@ -61,10 +62,10 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:padding="16dp"
-            android:text="button"
+            android:text="@string/button"
             android:textAlignment="center"
-            android:textColor="#DDDDDD"
-            android:textSize="30dp" />
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
 
     </LinearLayout>
 
