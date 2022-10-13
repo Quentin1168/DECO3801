@@ -1,8 +1,10 @@
 package com.example.deco3801project;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -19,15 +21,28 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Calendar;
+
 // https://github.com/tangqi92/WaveLoadingView for the code of wave function
 import me.itangqi.waveloadingview.WaveLoadingView;
 
 public class MainActivity2 extends AppCompatActivity {
-
+    /**
+     * The application's SharedPreferences, containing:
+     * recommendedIntake: The user's recommended water intake based on their age and gender
+     *                    (or set manually).
+     * currentAmountLeftToDrink: The amount of water left to drink out of the recommendedIntake.
+     * today: The current day of the year, which will be used to reset the WaveLoadingView and its
+     *        TextViews every day.
+     * running: If the user decides to use the NFC tag timer feature, this will be used to measure
+     *          their water intake based on how long the user is taking to drink, where 0 sets the
+     *          timer and 1 ends it.
+     */
     protected SharedPreferences pref;
+
     private EditText drinkInput;
     private Button continueButton;
     private int recommendedIntake;
@@ -83,7 +98,7 @@ public class MainActivity2 extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         if (calendar.get(Calendar.DAY_OF_YEAR) > pref.getInt("today", 0)) {
             edit.putInt("currentAmountLeftToDrink", recommendedIntake);
-            resetTextViews(String.valueOf(recommendedIntake));
+            resetWaterIntake();
         }
 
         if (!pref.contains("currentAmountLeftToDrink")) {
@@ -92,27 +107,26 @@ public class MainActivity2 extends AppCompatActivity {
             }
         }
 
-        // Store the current day also
+        // Store the current day
         edit.putInt("today", calendar.get(Calendar.DAY_OF_YEAR));
         edit.apply();
 
-        // writingTagFilters = new IntentFilter[] { tagDetected };
         // The total amount of water to drink initially
         TextView amountToDrink = findViewById(R.id.amountToDrink);
         amountToDrink.setText(String.valueOf(pref.getInt("currentAmountLeftToDrink", 0)));
 
         // The percentage of the amount left to drink
         TextView amountToDrinkPercent = findViewById(R.id.amountToDrinkPercentage);
-        amountToDrinkPercent.setText(String.valueOf((int) calculate_remaining_percentage(pref.getInt("currentAmountLeftToDrink", 0))).concat("%"));
+        amountToDrinkPercent.setText(String.valueOf((int) calculateRemainingPercentage()).concat("%"));
 
-        drinkInput = findViewById(R.id.drinkText);
-        continueButton = findViewById(R.id.add_button);
+        drinkInput = findViewById(R.id.drinkInput);
+        continueButton = findViewById(R.id.logButton);
         drinkInput.addTextChangedListener(continueTextWatcher);
 
         SeekBar seekBar = findViewById(R.id.seekBar);
         seekBar.setMax(100); // Sets the water height to 100%
 
-        WaveLoadingView waveLoadingView = findViewById(R.id.textView3);
+        WaveLoadingView waveLoadingView = findViewById(R.id.WaveLoadingView);
 
         // Disable the seekBar
         seekBar.setEnabled(false);
@@ -148,7 +162,7 @@ public class MainActivity2 extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         if (calendar.get(Calendar.DAY_OF_YEAR) > pref.getInt("today", 0)) {
             edit.putInt("currentAmountLeftToDrink", recommendedIntake);
-            resetTextViews(String.valueOf(recommendedIntake));
+            resetWaterIntake();
         }
 
         // Store the current day also
@@ -173,14 +187,19 @@ public class MainActivity2 extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable editable) {
             SeekBar seekBar = findViewById(R.id.seekBar);
-            int currentAmountLeftToDrink = pref.getInt("currentAmountLeftToDrink", 0);
-            double percentageRemaining = calculate_remaining_percentage(currentAmountLeftToDrink);
+            double percentageRemaining = calculateRemainingPercentage();
             seekBar.setProgress((int) percentageRemaining, true);
             System.out.println(seekBar.getProgress());
         }
     };
 
-    public void handleText(View v) { // This method run when button is clicked
+    /**
+     * This function logs the manually-input water intake in drinkInput in activity_main2.xml.
+     * This changes the WaveLoadingView's water leve and its TextViews' texts accordingly,
+     * and updates the currentAmountLeftToDrink sharedPreference.
+     * @param v The logButton in activity_main2.xml.
+     */
+    public void logIntake(View v) {
         String drinkStr = drinkInput.getText().toString();
         int drink = 0;
         if (!drinkStr.equals("")) {
@@ -190,10 +209,11 @@ public class MainActivity2 extends AppCompatActivity {
         int currentAmountLeftToDrink = pref.getInt("currentAmountLeftToDrink", 0);
 
         try {
-            currentAmountLeftToDrink = subtract_intake(currentAmountLeftToDrink, drink);
+            currentAmountLeftToDrink = subtractIntake(drink);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
+
         // Update the current amount left to drink
         SharedPreferences.Editor edit = pref.edit();
         edit.putInt("currentAmountLeftToDrink", currentAmountLeftToDrink);
@@ -205,25 +225,41 @@ public class MainActivity2 extends AppCompatActivity {
 
         // Update the TextViews' texts appropriately
         amountToDrink.setText(String.valueOf(currentAmountLeftToDrink));
-        double percentageRemaining = calculate_remaining_percentage(currentAmountLeftToDrink);
+        double percentageRemaining = calculateRemainingPercentage();
         amountToDrinkPercent.setText(String.valueOf((int) percentageRemaining).concat("%"));
         drinkInput.setText("");
     }
 
-    protected double calculate_remaining_percentage(int currentAmountLeftToDrink) {
-        recommendedIntake = pref.getInt("recommendedIntake", 0);
+    /**
+     * This helper function calculates the percentage of the water left to drink out of the user's
+     * recommended water intake.
+     * @return The percentage of the water left to drink out of the user's recommended water intake.
+     */
+    protected double calculateRemainingPercentage() {
+        int currentAmountLeftToDrink = pref.getInt("currentAmountLeftToDrink", 0);
+        int recommendedIntake = pref.getInt("recommendedIntake", 0);
         return 100 * ((double) currentAmountLeftToDrink / (double) recommendedIntake);
     }
 
-    protected int subtract_intake(int currentAmountLeftToDrink, int drink)
-            throws IllegalArgumentException {
-        if (drink > currentAmountLeftToDrink) {
-            throw new IllegalArgumentException("Drink cannot be larger than intake");
+    /**
+     * This helper function subtracts the amount of water drunk by the user from the user's current
+     * amount left to drink. If amountDrunk > currentAmountLeftToDrink, then 0 will be returned.
+     * @param amountDrunk The amount the user has just drunk.
+     * @return If amountDrunk > currentAmountLeftToDrink, return 0.
+     *         Otherwise, return currentAmountLeftToDrink - amountDrunk.
+     */
+    protected int subtractIntake(int amountDrunk) {
+        int currentAmountLeftToDrink = pref.getInt("currentAmountLeftToDrink", 0);
+        if (amountDrunk > currentAmountLeftToDrink) {
+            return 0;
         }
-
-        return (currentAmountLeftToDrink - drink);
+        return (currentAmountLeftToDrink - amountDrunk);
     }
 
+    /**
+     * This function will create the app's Notifications and set them to pop up in 1 hour intervals
+     * between 8 AM and 8 PM.
+     */
     private void setNotificationToIntervals() {
         // Set the Notification created to fire up at regular intervals
         Intent intent = new Intent(this, HourlyReceiver.class);
@@ -249,14 +285,21 @@ public class MainActivity2 extends AppCompatActivity {
                 60 * 60 * 1000, pendingIntent); // make the alarm repeat every hour
     }
 
-    public void resetTextViews(String resetWith) {
+    /**
+     * This function resets the water intake TextViews in the middle of the WaveLoadingView in
+     * activity_main2.xml.
+     */
+    private void resetWaterIntake() {
+        int recommendedIntake = pref.getInt("recommendedIntake", 0);
+        String maxPercentage = "100%";
+
         // Get the TextViews' texts
         TextView amountToDrink = findViewById(R.id.amountToDrink);
         TextView amountToDrinkPercent = findViewById(R.id.amountToDrinkPercentage);
 
         // Update the TextViews' texts appropriately
-        amountToDrink.setText(resetWith);
-        amountToDrinkPercent.setText("100%");
+        amountToDrink.setText(recommendedIntake);
+        amountToDrinkPercent.setText(maxPercentage);
     }
 
     @Override
@@ -281,7 +324,7 @@ public class MainActivity2 extends AppCompatActivity {
                 timer.reset();
                 edit.putInt("running", 0);
                 edit.apply();
-                TextView time = findViewById(R.id.textView2);
+                TextView time = findViewById(R.id.Or);
                 time.setText(String.valueOf(timer.getPrevSeconds()));
             }
 

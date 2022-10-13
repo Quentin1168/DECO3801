@@ -17,15 +17,11 @@ public class MainActivity3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
-
-
         // Show slides
         viewPager = findViewById(R.id.viewpager);
         sliderAdapter = new SliderAdapter(this);
         viewPager.setAdapter(sliderAdapter);
 
-        // Finish this activity and back to where it was intended
-        //button = (Button) findViewById(R.id.close_button);
         TextView txtButton = findViewById(R.id.txtButtonClickable);
         txtButton.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

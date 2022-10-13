@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/ageText"
+        android:id="@+id/ageInput"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:autofillHints="age"
@@ -56,7 +56,7 @@
         app:layout_constraintVertical_bias="0.584" />
 
     <Button
-        android:id="@+id/continue_button"
+        android:id="@+id/continueButton"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:enabled="false"
@@ -70,7 +70,7 @@
         app:layout_constraintVertical_bias="0.732" />
 
     <Button
-        android:id="@+id/gender_button"
+        android:id="@+id/genderButton"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:onClick="handleGender"
@@ -83,7 +83,7 @@
         app:layout_constraintVertical_bias="0.335" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/Or"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/OR"
@@ -93,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender_button" />
+        app:layout_constraintTop_toBottomOf="@+id/genderButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

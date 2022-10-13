@@ -44,7 +44,7 @@
     
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/recommendedDailyIntake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:showDividers="middle"
@@ -60,7 +60,7 @@
         app:layout_constraintVertical_bias="0.159" />
 
     <me.itangqi.waveloadingview.WaveLoadingView
-        android:id="@+id/textView3"
+        android:id="@+id/WaveLoadingView"
         android:layout_width="293dp"
         android:layout_height="290dp"
         android:layout_marginStart="80dp"
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:enabled="true"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintBottom_toTopOf="@+id/WaveLoadingView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +90,7 @@
         app:layout_constraintVertical_bias="0.86" />
 
     <EditText
-        android:id="@+id/drinkText"
+        android:id="@+id/drinkInput"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:autofillHints="Enter your intake"
@@ -114,11 +114,11 @@
         app:layout_constraintVertical_bias="0.767" />
 
     <Button
-        android:id="@+id/add_button"
+        android:id="@+id/logButton"
         android:layout_width="309dp"
         android:layout_height="58dp"
         android:enabled="false"
-        android:onClick="handleText"
+        android:onClick="logIntake"
         android:text="@string/log_intake"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,7 +131,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_button"
+        app:layout_constraintTop_toBottomOf="@+id/logButton"
         tools:layout_editor_absoluteX="1dp">
 
         <ImageButton
@@ -158,7 +158,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/recommendedDailyIntake"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

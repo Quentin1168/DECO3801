@@ -17,11 +17,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-
 import java.io.IOException;
 import java.lang.String;
 import java.security.GeneralSecurityException;
-
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences pref;
@@ -35,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Creates a notification channel for the app's notifications
+
+        // Create a Notification Channel for the app's Notifications
         createNotificationChannel();
 
         String masterKeyAlias = null;
@@ -64,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        ageInput = findViewById(R.id.ageText);
-        genderButton = findViewById(R.id.gender_button);
+        ageInput = findViewById(R.id.ageInput);
+        genderButton = findViewById(R.id.genderButton);
 
-        continueButton = findViewById(R.id.continue_button);
+        continueButton = findViewById(R.id.continueButton);
         intakeInput = findViewById(R.id.intakeInput);
         ageInput.setOnFocusChangeListener((view, b) -> {
             intakeInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
@@ -107,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * This function handles the gender options present in the gender_button in activity_main.xml.
+     * Pressing this button will switch it from one gender to the other.
+     * @param v The genderButton in activity_main.xml.
+     */
     public void handleGender(View v) {
         if (genderButton.getText().equals("Male")) {
             genderButton.setText(R.string.gender_female);
@@ -115,6 +119,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This function handles the clickability of the continueButton in activity_main.xml.
+     * If either the ageInput or intakeInput is filled, then the continueButton will be clickable.
+     * If neither is filled, then it will not be clickable.
+     * @param v The continueButton in activity_main.xml.
+     */
     public void handleText(View v) { // This method run when button is clicked
         String ageStr = ageInput.getText().toString();
         int age = 0;
@@ -137,6 +147,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Based on the user's given age and gender, determines the recommended water intake for
+     * the user to follow.
+     * @param age The user's age.
+     * @param gender The user's gender, where 1 is Male and 0 is Female.
+     * @return The user's recommended water intake based on their age and gender.
+     */
     public int calculateIntake(int age, boolean gender) {
         int intake;
         if (age <=8) { // Specifying for ages under 8
@@ -169,6 +186,10 @@ public class MainActivity extends AppCompatActivity {
         return intake;
     }
 
+    /**
+     * This function creates a Notification Channel for this app with the ID 1, a high importance,
+     * and vibrations enabled.
+     */
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -176,11 +197,10 @@ public class MainActivity extends AppCompatActivity {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_HIGH;
+
             NotificationChannel channel = new NotificationChannel("1", name, importance);
             channel.enableVibration(true);
             channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviours after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
