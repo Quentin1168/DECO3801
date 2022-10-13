@@ -1,12 +1,9 @@
 package com.example.deco3801project;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +11,6 @@ import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -24,13 +20,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
-import java.io.Serializable;
 import java.security.GeneralSecurityException;
 import java.util.Calendar;
 // https://github.com/tangqi92/WaveLoadingView for the code of wave function
 import me.itangqi.waveloadingview.WaveLoadingView;
 
-public class MainActivity2 extends AppCompatActivity  {
+public class MainActivity2 extends AppCompatActivity {
 
     protected SharedPreferences pref;
     private EditText drinkInput;
@@ -40,7 +35,6 @@ public class MainActivity2 extends AppCompatActivity  {
 
     Context context = this;
     StopWatch timer =  new StopWatch();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +76,24 @@ public class MainActivity2 extends AppCompatActivity  {
         setContentView(R.layout.activity_main2);
         recommendedIntake = pref.getInt("recommendedIntake", 0);
 
-        // Create a new sharedPref called amountLeftToDrink that will be edited later on
+        // Create a new sharedPref called currentAmountLeftToDrink that will be edited later on
         SharedPreferences.Editor edit = pref.edit();
+
+        // Check if the current day is greater than the current day stored, if one exists
+        Calendar calendar = Calendar.getInstance();
+        if (calendar.get(Calendar.DAY_OF_YEAR) > pref.getInt("today", 0)) {
+            edit.putInt("currentAmountLeftToDrink", recommendedIntake);
+            resetTextViews(String.valueOf(recommendedIntake));
+        }
+
         if (!pref.contains("currentAmountLeftToDrink")) {
             if (recommendedIntake > 0) {
                 edit.putInt("currentAmountLeftToDrink", recommendedIntake);
             }
         }
+
+        // Store the current day also
+        edit.putInt("today", calendar.get(Calendar.DAY_OF_YEAR));
         edit.apply();
 
         // writingTagFilters = new IntentFilter[] { tagDetected };
@@ -109,8 +114,10 @@ public class MainActivity2 extends AppCompatActivity  {
 
         WaveLoadingView waveLoadingView = findViewById(R.id.textView3);
 
+        // Disable the seekBar
         seekBar.setEnabled(false);
 
+        // Make sure the WaveLoadingView's water level changes accordingly
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -128,11 +135,25 @@ public class MainActivity2 extends AppCompatActivity  {
             }
         });
 
+        // Set the Notification to pop up at regular intervals
+        setNotificationToIntervals();
+    }
 
-        // Build and call the Notification for testing
-        Notification notification = buildNotification();
-        callNotification(notification);
-        setNotificationToIntervals(notification);
+    @Override
+    public void onResume(){
+        super.onResume();
+        SharedPreferences.Editor edit = pref.edit();
+
+        // Check if the current day is greater than the current day stored, if one exists
+        Calendar calendar = Calendar.getInstance();
+        if (calendar.get(Calendar.DAY_OF_YEAR) > pref.getInt("today", 0)) {
+            edit.putInt("currentAmountLeftToDrink", recommendedIntake);
+            resetTextViews(String.valueOf(recommendedIntake));
+        }
+
+        // Store the current day also
+        edit.putInt("today", calendar.get(Calendar.DAY_OF_YEAR));
+        edit.apply();
     }
 
     private final TextWatcher continueTextWatcher = new TextWatcher() {
@@ -203,38 +224,13 @@ public class MainActivity2 extends AppCompatActivity  {
         return (currentAmountLeftToDrink - drink);
     }
 
-    private Notification buildNotification() {
-        // Create an explicit intent for an Activity in your app
-        Intent intent = new Intent(this, MainActivity2.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-
-        long[] vibrationPattern = {1000 , 1000 , 1000 , 1000};
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "1")
-                .setSmallIcon(R.drawable.ic_baseline_local_drink_24)
-                .setContentTitle("Drink Water!")
-                .setContentText("You should drink some water soon if you haven't yet!")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(pendingIntent)
-                .setVibrate(vibrationPattern)
-                .setAutoCancel(true);
-
-        return notificationBuilder.build();
-    }
-
-    private void callNotification(Notification notification) {
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-
-        // notificationId is a unique int for each notification that must be defined
-        notificationManager.notify(1, notification);
-    }
-
-    private void setNotificationToIntervals(Notification notification) {
+    private void setNotificationToIntervals() {
         // Set the Notification created to fire up at regular intervals
         Intent intent = new Intent(this, HourlyReceiver.class);
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
                         PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
         // Set the alarm to start at 8 AM and to repeat every hour afterwards until 8 PM
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -246,13 +242,22 @@ public class MainActivity2 extends AppCompatActivity  {
 
         calendar.set(Calendar.HOUR_OF_DAY, 8); // set the time to 8 AM
 
-        // set the window to be from 8 AM to 8 PM
+        // Set the window to be from 8 AM to 8 PM
         alarmManager.setWindow(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(),
                 12 * 60 * 60 * 1000, pendingIntent);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 60 * 60 * 1000, pendingIntent); // make the alarm repeat every hour
     }
 
+    public void resetTextViews(String resetWith) {
+        // Get the TextViews' texts
+        TextView amountToDrink = findViewById(R.id.amountToDrink);
+        TextView amountToDrinkPercent = findViewById(R.id.amountToDrinkPercentage);
+
+        // Update the TextViews' texts appropriately
+        amountToDrink.setText(resetWith);
+        amountToDrinkPercent.setText("100%");
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {
