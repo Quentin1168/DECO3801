@@ -38,6 +38,14 @@
         </receiver>
 
         <activity
+            android:name=".EditNotification"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".MainActivity3"
             android:exported="false" />
         <activity
@@ -49,9 +57,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="application/vnd.com.example.deco3801project" />
             </intent-filter>
-
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -60,7 +65,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-
         </activity>
     </application>
 

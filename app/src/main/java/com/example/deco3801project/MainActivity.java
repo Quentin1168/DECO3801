@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
      * If neither is filled, then it will not be clickable.
      * @param v The continueButton in activity_main.xml.
      */
-    public void handleText(View v) { // This method run when button is clicked
+    public void handleText(View v) {
         String ageStr = ageInput.getText().toString();
         int age = 0;
         if (!ageStr.equals("")) {

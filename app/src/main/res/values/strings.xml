@@ -24,4 +24,12 @@
     <string name="title_here">Title Here</string>
     <string name="description_here">description here</string>
     <string name="button">button</string>
+    <string name="notification_window_start">Start</string>
+    <string name="notification_window_end">End</string>
+    <string name="TO">TO</string>
+    <string name="once_every_x_hours">Once Every X Hours</string>
+    <string name="notification_window">Notification Window (24 Hour Clock)</string>
+    <string name="notification_frequency">Notification Frequency (Hours)</string>
+    <string name="edit_notifications">Edit Notifications</string>
+    <string name="save">SAVE</string>
 </resources>

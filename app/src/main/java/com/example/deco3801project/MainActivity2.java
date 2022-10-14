@@ -37,6 +37,12 @@ public class MainActivity2 extends AppCompatActivity {
      * currentAmountLeftToDrink: The amount of water left to drink out of the recommendedIntake.
      * today: The current day of the year, which will be used to reset the WaveLoadingView and its
      *        TextViews every day.
+     * interval: The hourly interval/frequency at which the app's notifications will fire up,
+     *           1 by default.
+     * windowStart: The start of the window in which the app's notifications may fire up in a 24
+     *              hour clock, 8 by default.
+     * windowEnd: The end of the window in which the app's notifications may fire up in a 24
+     *            hour clock, 20 by default.
      * running: If the user decides to use the NFC tag timer feature, this will be used to measure
      *          their water intake based on how long the user is taking to drink, where 0 sets the
      *          timer and 1 ends it.
@@ -103,6 +109,20 @@ public class MainActivity2 extends AppCompatActivity {
         // Store the current day
         Calendar calendar = Calendar.getInstance();
         edit.putInt("today", calendar.get(Calendar.DAY_OF_YEAR));
+
+        // Store the notification hourly interval, by default 1, if none exist yet
+        if (!pref.contains("interval")) {
+            edit.putFloat("interval", (float) 1.0);
+        }
+
+        // Store the notification window, by default 8 and 20, if they don't exist yet
+        if (!pref.contains("windowStart")) {
+            edit.putInt("windowStart", 8);
+        }
+        if (!pref.contains("windowEnd")) {
+            edit.putInt("windowEnd", 20);
+        }
+
         edit.apply();
 
         // The total amount of water to drink initially
@@ -143,8 +163,14 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-        // Set the Notification to pop up at regular intervals
-        setNotificationToIntervals();
+        float interval = pref.getFloat("interval", (float) 1.0);
+        int windowStart = pref.getInt("windowStart", 8);
+        int windowEnd = pref.getInt("windowEnd", 20);
+        try {
+            setNotificationToIntervals(interval, windowStart, windowEnd);
+        } catch (IllegalArgumentException e) {
+            //
+        }
     }
 
     @Override
@@ -252,32 +278,42 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     /**
-     * This function will create the app's Notifications and set them to pop up in 1 hour intervals
-     * between 8 AM and 8 PM.
+     * This function will create the app's Notifications and set them to pop up in the interval
+     * given and between windowStart and windowEnd.
+     * @param interval The interval (in hours) in which the Notification will fire up.
+     * @param windowStart The start of the window in which Notifications may ring in a 24 hour clock.
+     * @param windowEnd The end of the window in which Notifications may ring in a 24 hour clock.
+     * @exception IllegalArgumentException If windowEnd < windowStart
      */
-    private void setNotificationToIntervals() {
+    private void setNotificationToIntervals(float interval, int windowStart, int windowEnd)
+            throws IllegalArgumentException {
+        if (windowEnd < windowStart) {
+            throw new IllegalArgumentException();
+        }
+
         // Set the Notification created to fire up at regular intervals
         Intent intent = new Intent(this, HourlyReceiver.class);
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
                         PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        // Set the alarm to start at 8 AM and to repeat every hour afterwards until 8 PM
+        // Apply the arguments
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
-        // If it is past 8 PM, set the alarm for tomorrow instead
-        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) > 20) {
+        // If it is past windowEnd, set the alarm for tomorrow instead
+        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) > windowEnd) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
 
-        calendar.set(Calendar.HOUR_OF_DAY, 8); // set the time to 8 AM
+        calendar.set(Calendar.HOUR_OF_DAY, windowStart); // Set the time to windowStart
+        int windowHours = windowEnd - windowStart;
 
-        // Set the window to be from 8 AM to 8 PM
+        // Set the window to be from windowStart to windowEnd
         alarmManager.setWindow(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(),
-                12 * 60 * 60 * 1000, pendingIntent);
+                (long) windowHours * 60 * 60 * 1000, pendingIntent);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                60 * 60 * 1000, pendingIntent); // make the alarm repeat every hour
+                (long) (interval * 60 * 60 * 1000), pendingIntent);
     }
 
     /**
@@ -325,10 +361,25 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
+    /**
+     * This function sends the user to the NFC screen when the btnNFC at the top right of
+     * activity_main2.xml is clicked.
+     * @param v The btnNFC in activity_main2.xml.
+     */
     public void handleNFCButton (View v) { // This function runs when NFC button is pressed
         Intent intent = new Intent(MainActivity2.this, WriteNFC.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
-}
 
+    /**
+     * This function sends the user to the Notification Editing screen when the btnEditNotification
+     * at the top left of activity_main2.xml is clicked.
+     * @param v The btnEditNotification in activity_main2.xml.
+     */
+    public void handleEditNotification(View v) {
+        Intent intent = new Intent(MainActivity2.this, EditNotification.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+    }
+}
