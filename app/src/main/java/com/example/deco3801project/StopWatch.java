@@ -2,52 +2,34 @@ package com.example.deco3801project;
 
 import android.app.Activity;
 import android.os.Handler;
+import java.util.Calendar;
+import java.util.Date;
 
-public class StopWatch extends Activity{
-    private int seconds = 0;
-    private int prevSeconds;
-    private boolean running;
+public class StopWatch extends Activity {
 
+    private Date currentTime;
 
-    protected void onCreate() {
-        runTimer();
+    private Date previousTime;
+
+    public StopWatch() {
+        currentTime = null;
+        previousTime = null;
     }
 
-    public void reset() {
-        running = false;
-        prevSeconds = seconds;
-        seconds = 0;
-
+    public void setCurrentTime() {
+        currentTime =  Calendar.getInstance().getTime();
     }
 
-    public void start() {
-        running = true;
+    public int getTimeDifference() {
+        previousTime = currentTime;
+        setCurrentTime();
+        long diff = currentTime.getTime() - previousTime.getTime();
+        int seconds = (int) (diff/ 1000);
+        if (seconds > 15) {
+            return 0;
+        }
+        return seconds;
     }
 
-    public void stop()
-    {
-        running = false;
-    }
-
-    public int getPrevSeconds() {
-        return prevSeconds;
-    }
-
-    public void runTimer() {
-        start();
-        final Handler handler = new Handler();
-
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (running) {
-                    seconds++;
-                }
-
-                handler.postDelayed(this, 1000);
-            }
-        });
-
-
-    }
 }
+

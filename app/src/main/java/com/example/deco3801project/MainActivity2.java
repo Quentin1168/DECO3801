@@ -56,6 +56,7 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         checkAppStart = getSharedPreferences("com.example.deco3801project", MODE_PRIVATE);
         // Slider Intro
+
         if (checkAppStart.getBoolean("first-run", true)) {   // if it is first run
             Intent i = new Intent(getApplicationContext(), MainActivity3.class);
             checkAppStart.edit().putBoolean("first-run", false).apply();    // make param to be false
@@ -87,7 +88,6 @@ public class MainActivity2 extends AppCompatActivity {
         } catch (IOException e) {
             e.notify();
         }
-
         setContentView(R.layout.activity_main2);
         recommendedIntake = pref.getInt("recommendedIntake", 0);
 
@@ -292,13 +292,12 @@ public class MainActivity2 extends AppCompatActivity {
     private void resetWaterIntake() {
         int recommendedIntake = pref.getInt("recommendedIntake", 0);
         String maxPercentage = "100%";
-
         // Get the TextViews' texts
         TextView amountToDrink = findViewById(R.id.amountToDrink);
         TextView amountToDrinkPercent = findViewById(R.id.amountToDrinkPercentage);
 
         // Update the TextViews' texts appropriately
-        amountToDrink.setText(recommendedIntake);
+        amountToDrink.setText(String.valueOf(recommendedIntake));
         amountToDrinkPercent.setText(maxPercentage);
     }
 
@@ -316,16 +315,16 @@ public class MainActivity2 extends AppCompatActivity {
             Toast.makeText(context, String.valueOf(running), Toast.LENGTH_LONG).show();
             SharedPreferences.Editor edit = pref.edit();
             if (running == 0) {
-                timer.runTimer();
+                timer.setCurrentTime();
 
                 edit.putInt("running", 1);
                 edit.apply();
             } else if (running == 1) {
-                timer.reset();
+                int diff = timer.getTimeDifference();
                 edit.putInt("running", 0);
                 edit.apply();
-                TextView time = findViewById(R.id.Or);
-                time.setText(String.valueOf(timer.getPrevSeconds()));
+                TextView time = findViewById(R.id.time);
+                time.setText(String.valueOf(diff));
             }
 
         }
