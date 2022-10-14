@@ -94,13 +94,6 @@ public class MainActivity2 extends AppCompatActivity {
         // Create a new sharedPref called currentAmountLeftToDrink that will be edited later on
         SharedPreferences.Editor edit = pref.edit();
 
-        // Check if the current day is greater than the current day stored, if one exists
-        Calendar calendar = Calendar.getInstance();
-        if (calendar.get(Calendar.DAY_OF_YEAR) > pref.getInt("today", 0)) {
-            edit.putInt("currentAmountLeftToDrink", recommendedIntake);
-            resetWaterIntake();
-        }
-
         if (!pref.contains("currentAmountLeftToDrink")) {
             if (recommendedIntake > 0) {
                 edit.putInt("currentAmountLeftToDrink", recommendedIntake);
@@ -108,6 +101,7 @@ public class MainActivity2 extends AppCompatActivity {
         }
 
         // Store the current day
+        Calendar calendar = Calendar.getInstance();
         edit.putInt("today", calendar.get(Calendar.DAY_OF_YEAR));
         edit.apply();
 
@@ -158,9 +152,10 @@ public class MainActivity2 extends AppCompatActivity {
         super.onResume();
         SharedPreferences.Editor edit = pref.edit();
 
-        // Check if the current day is greater than the current day stored, if one exists
+        // Check if the current day is different from the current day stored, and reset the water
+        // intake if so
         Calendar calendar = Calendar.getInstance();
-        if (calendar.get(Calendar.DAY_OF_YEAR) > pref.getInt("today", 0)) {
+        if (calendar.get(Calendar.DAY_OF_YEAR) != pref.getInt("today", 0)) {
             edit.putInt("currentAmountLeftToDrink", recommendedIntake);
             resetWaterIntake();
         }
