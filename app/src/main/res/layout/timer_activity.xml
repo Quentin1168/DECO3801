@@ -24,13 +24,15 @@
     <ImageButton
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="280dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:contentDescription="@string/setting"
         android:onClick="handleBackButton"
+        app:layout_constraintBottom_toTopOf="@+id/timer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back_button" />
@@ -58,17 +60,25 @@
         android:hint="Input Volume (mL/s)"
         android:inputType="number"
         android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/timer"
+        app:layout_constraintEnd_toStartOf="@+id/inputButton"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="38dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/timer"
         android:layout_width="158dp"
-        android:layout_height="38dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="347dp"
         android:hint="Your Time to Drink:"
         android:textSize="15sp"
-        tools:layout_editor_absoluteX="38dp"
-        tools:layout_editor_absoluteY="357dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/timerButton"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
     <Button
         android:id="@+id/timerButton"
@@ -121,7 +131,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="36dp"
-        android:text="To initialise and estimate your drinking rate when recording via NFC, first input the volume of water you are about to drink in mililitres, then press the Start Timing button right before and after you're done drinking."
+        android:text="To initialise and estimate your drinking rate when recording via NFC, first press the Start Timing button right before and after you're done drinking, then input the volume of water you drank in mililitres"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
