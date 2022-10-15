@@ -6,71 +6,84 @@
     android:layout_height="match_parent"
     tools:context=".TimerActivity">
 
-    <Button
-        android:id="@+id/timerButton"
-        android:layout_width="356dp"
-        android:layout_height="136dp"
-        android:onClick="measureTime"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/setting"
+        android:onClick="handleBackButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.672" />
+        app:srcCompat="@drawable/ic_back_button" />
+
+    <Button
+        android:id="@+id/timerButton"
+        android:layout_width="169dp"
+        android:layout_height="59dp"
+        android:onClick="measureTime"
+        android:text="Time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.847"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.572" />
 
     <TextView
         android:id="@+id/timer"
-        android:layout_width="376dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="867dp"
-        android:layout_marginBottom="287dp"
+        android:layout_width="99dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="40dp"
         android:text="Time:"
-        android:textSize="100sp"
-        app:layout_constraintBottom_toTopOf="@+id/drinkingRate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.556" />
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/timerButton"
+        app:layout_constraintEnd_toEndOf="@+id/timerButton"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="@+id/timerButton" />
 
     <EditText
         android:id="@+id/drinkInput"
-        android:layout_width="316dp"
-        android:layout_height="129dp"
+        android:layout_width="195dp"
+        android:layout_height="63dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Volume:"
-        android:textSize="70sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/continueButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/continueButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/continueButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.759" />
+        app:layout_constraintVertical_bias="0.924" />
 
     <Button
         android:id="@+id/continueButton"
-        android:layout_width="233dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="577dp"
-        android:layout_marginBottom="134dp"
+        android:layout_width="135dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="380dp"
         android:onClick="setDrinkingRate"
         android:text="Input:"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/timer"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/drinkingRate"
-        android:layout_width="591dp"
-        android:layout_height="109dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginBottom="282dp"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
         android:text="Your Drinking Rate is: "
-        android:textSize="50sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/timerButton"
-        app:layout_constraintStart_toStartOf="@+id/timer"
-        app:layout_constraintTop_toBottomOf="@+id/timer" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.236" />
 </androidx.constraintlayout.widget.ConstraintLayout>

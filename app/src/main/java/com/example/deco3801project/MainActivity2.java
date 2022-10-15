@@ -372,6 +372,11 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
+    private void enterTimer(View v) {
+        Intent intent = new Intent(getApplicationContext(), TimerActivity.class);
+        startActivity(intent);
+    }
+
     /**
      * This function sends the user to the NFC screen when the btnNFC at the top right of
      * activity_main2.xml is clicked.

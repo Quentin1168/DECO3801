@@ -117,5 +117,14 @@ public class TimerActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Returns the user to the previous screen when the backButton is pressed in
+     * activity_edit_notification.xml.
+     * @param v The backButton in activity_edit_notification.xml.
+     */
+    public void handleBackButton(View v) {
+        onBackPressed();
+    }
+
 
 }
