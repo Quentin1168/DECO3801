@@ -111,6 +111,26 @@ public class WriteNFC extends AppCompatActivity {
 
     }
 
+    /**
+     * This function is overridden to ensure that the back button will always return the user to the
+     * activity_main2.xml.
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(WriteNFC.this, MainActivity2.class));
+        finish();
+    }
+
+    /**
+     * Returns the user to the previous screen when the backButton2 is pressed in
+     * activity_write_nfc.xml.
+     * @param v The backButton2 in activity_write_nfc.xml.
+     */
+    public void handleBackButton(View v) {
+        onBackPressed();
+    }
+
     public void handleWrite(View v) {
         NdefRecord mimeRecord =
                 NdefRecord.createMime("application/vnd.com.example.deco3801project",
