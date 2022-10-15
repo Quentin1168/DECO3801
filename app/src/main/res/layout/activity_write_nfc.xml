@@ -14,7 +14,7 @@
         android:layout_marginStart="152dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="152dp"
-        android:text="Write NFC"
+        android:text="@string/write_nfc"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
