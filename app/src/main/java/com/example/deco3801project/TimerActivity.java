@@ -60,7 +60,9 @@ public class TimerActivity extends AppCompatActivity {
             e.notify();
         }
         setContentView(R.layout.timer_activity);
-
+        drinkInput = findViewById(R.id.drinkInput);
+        continueButton = findViewById(R.id.continueButton);
+        drinkInput.addTextChangedListener(continueTextWatcher);
     }
 
     private final TextWatcher continueTextWatcher = new TextWatcher() {
@@ -85,19 +87,21 @@ public class TimerActivity extends AppCompatActivity {
 
     public void measureTime(View view) {
             int running = pref.getInt("running", 0);
-            Toast.makeText(context, String.valueOf(running), Toast.LENGTH_LONG).show();
+
             SharedPreferences.Editor edit = pref.edit();
             if (running == 0) {
+                Toast.makeText(context, "Timer Started", Toast.LENGTH_LONG).show();
                 timer.setCurrentTime();
                 edit.putInt("running", 1);
                 edit.apply();
             } else if (running == 1) {
+                Toast.makeText(context, "Timer Ended", Toast.LENGTH_LONG).show();
                 int diff = timer.getTimeDifference();
                 edit.putInt("running", 0);
                 edit.apply();
                 time = diff;
                 TextView time = findViewById(R.id.timer);
-                time.setText("Time: " + String.valueOf(diff));
+                time.setText(String.valueOf(diff));
             }
     }
 
@@ -109,14 +113,27 @@ public class TimerActivity extends AppCompatActivity {
             drink = Integer.parseInt(drinkStr); // Get amount to be drunk
         }
         if (time != 0) {
+            Toast.makeText(context, String.valueOf(drink/time), Toast.LENGTH_LONG).show();
             edit.putFloat("drinkingRate", drink/time);
         }
         else {
             edit.putFloat("drinkingRate", 0);
+
         }
+        edit.apply();
 
     }
 
+    /**
+     * This function is overridden to ensure that the back button will always return the user to the
+     * activity_main2.xml.
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(TimerActivity.this, MainActivity2.class));
+        finish();
+    }
     /**
      * Returns the user to the previous screen when the backButton is pressed in
      * activity_edit_notification.xml.

@@ -141,6 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:onClick="enterTimer"
             android:background="@android:color/transparent"
             android:contentDescription="@string/timer"
             app:srcCompat="@drawable/ic_timer" />
@@ -150,7 +151,6 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:onClick="enterTimer"
             android:background="@android:color/transparent"
             android:contentDescription="@string/calendar"
             app:srcCompat="@drawable/ic_calendar" />

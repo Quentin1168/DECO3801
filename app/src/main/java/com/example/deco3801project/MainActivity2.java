@@ -53,7 +53,7 @@ public class MainActivity2 extends AppCompatActivity {
     private Button continueButton;
     private int recommendedIntake;
     SharedPreferences checkAppStart = null;    // Check app start times
-    private int drinkingRate;
+    private float drinkingRate;
     Context context = this;
     StopWatch timer =  new StopWatch();
 
@@ -96,7 +96,7 @@ public class MainActivity2 extends AppCompatActivity {
         }
         setContentView(R.layout.activity_main2);
         recommendedIntake = pref.getInt("recommendedIntake", 0);
-
+        drinkingRate = pref.getFloat("drinkingRate", 0);
         // Create a new sharedPref called currentAmountLeftToDrink that will be edited later on
         SharedPreferences.Editor edit = pref.edit();
 
@@ -347,11 +347,10 @@ public class MainActivity2 extends AppCompatActivity {
                 NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()) ||
                 NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
             int running = pref.getInt("running", 0);
-            if (pref.getInt("drinkingRate", 0) == 0) {
+            if (pref.getFloat("drinkingRate", 0) == 0.0) {
                 Toast.makeText(context, "Initialisation needed.", Toast.LENGTH_LONG).show();
                 return;
             }
-            Toast.makeText(context, String.valueOf(running), Toast.LENGTH_LONG).show();
             SharedPreferences.Editor edit = pref.edit();
             if (running == 0) {
                 Toast.makeText(context, "Timer started.", Toast.LENGTH_LONG).show();
@@ -362,9 +361,9 @@ public class MainActivity2 extends AppCompatActivity {
                 int diff = timer.getTimeDifference();
                 edit.putInt("running", 0);
                 edit.apply();
-                drinkingRate = pref.getInt("drinkingRate", 0);
-                int amount = diff * drinkingRate;
-                Toast.makeText(context, "You drank:" + String.valueOf(amount) +"."
+                drinkingRate = pref.getFloat("drinkingRate", 0);
+                int amount =  Math.round(diff * drinkingRate);
+                Toast.makeText(context, "You drank: " + String.valueOf(amount) +"."
                         , Toast.LENGTH_LONG).show();
                 logIntakeHelper(amount);
             }
@@ -372,8 +371,8 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
-    private void enterTimer(View v) {
-        Intent intent = new Intent(getApplicationContext(), TimerActivity.class);
+    public void enterTimer(View v) {
+        Intent intent = new Intent(MainActivity2.this, TimerActivity.class);
         startActivity(intent);
     }
 
@@ -398,4 +397,6 @@ public class MainActivity2 extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
+
+
 }
