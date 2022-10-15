@@ -358,12 +358,12 @@ public class MainActivity2 extends AppCompatActivity {
                 edit.putInt("running", 1);
                 edit.apply();
             } else if (running == 1) {
-                int diff = timer.getTimeDifference();
+                double diff = timer.getTimeDifference()-1.5;
                 edit.putInt("running", 0);
                 edit.apply();
                 drinkingRate = pref.getFloat("drinkingRate", 0);
-                int amount =  Math.round(diff * drinkingRate);
-                Toast.makeText(context, "You drank: " + String.valueOf(amount) +"."
+                int amount = (int) Math.round(diff * drinkingRate);
+                Toast.makeText(context, "You drank: " + amount +"."
                         , Toast.LENGTH_LONG).show();
                 logIntakeHelper(amount);
             }
