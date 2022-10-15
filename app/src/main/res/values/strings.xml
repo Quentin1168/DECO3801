@@ -6,10 +6,10 @@
     <string name="gender_female">Female</string>
     <string name="channel_name">Hydration Channel</string>
     <string name="channel_description">Notification Channel for the Hydration app</string>
-    <string name="enter_your_water_intake">ENTER YOUR WATER INTAKE</string>
+    <string name="enter_your_water_intake">ENTER YOUR WATER INTAKE (mL)</string>
     <string name="Continue">Continue</string>
     <string name="OR">OR</string>
-    <string name="recommended_daily_intake">Recommended daily intake</string>
+    <string name="recommended_daily_intake">Recommended Daily Intake (mL)</string>
     <string name="amount_drunk">Amount Drunk</string>
     <string name="enter_your_intake">Enter your intake</string>
     <string name="log_intake">Log intake</string>

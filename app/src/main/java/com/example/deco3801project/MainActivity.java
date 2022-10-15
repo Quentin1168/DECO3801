@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         ageInput = findViewById(R.id.ageInput);
         genderButton = findViewById(R.id.genderButton);
 
-        continueButton = findViewById(R.id.continueButton);
+        continueButton = findViewById(R.id.inputButton);
         intakeInput = findViewById(R.id.intakeInput);
         ageInput.setOnFocusChangeListener((view, b) -> {
             intakeInput.setBackground(AppCompatResources.getDrawable(getApplicationContext(),
