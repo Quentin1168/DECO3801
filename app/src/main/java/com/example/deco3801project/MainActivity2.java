@@ -53,7 +53,7 @@ public class MainActivity2 extends AppCompatActivity {
     private Button continueButton;
     private int recommendedIntake;
     SharedPreferences checkAppStart = null;    // Check app start times
-
+    private int drinkingRate;
     Context context = this;
     StopWatch timer =  new StopWatch();
 
@@ -220,13 +220,17 @@ public class MainActivity2 extends AppCompatActivity {
      * and updates the currentAmountLeftToDrink sharedPreference.
      * @param v The logButton in activity_main2.xml.
      */
-    public void logIntake(View v) {
+    public void logIntake(View v){
         String drinkStr = drinkInput.getText().toString();
         int drink = 0;
         if (!drinkStr.equals("")) {
             drink = Integer.parseInt(drinkStr); // Get amount to be drunk
         }
+        logIntakeHelper(drink);
 
+    }
+
+    public void logIntakeHelper(int drink) {
         int currentAmountLeftToDrink = pref.getInt("currentAmountLeftToDrink", 0);
 
         try {
@@ -343,19 +347,26 @@ public class MainActivity2 extends AppCompatActivity {
                 NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()) ||
                 NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
             int running = pref.getInt("running", 0);
+            if (pref.getInt("drinkingRate", 0) == 0) {
+                Toast.makeText(context, "Initialisation needed.", Toast.LENGTH_LONG).show();
+                return;
+            }
             Toast.makeText(context, String.valueOf(running), Toast.LENGTH_LONG).show();
             SharedPreferences.Editor edit = pref.edit();
             if (running == 0) {
+                Toast.makeText(context, "Timer started.", Toast.LENGTH_LONG).show();
                 timer.setCurrentTime();
-
                 edit.putInt("running", 1);
                 edit.apply();
             } else if (running == 1) {
                 int diff = timer.getTimeDifference();
                 edit.putInt("running", 0);
                 edit.apply();
-                TextView time = findViewById(R.id.time);
-                time.setText(String.valueOf(diff));
+                drinkingRate = pref.getInt("drinkingRate", 0);
+                int amount = diff * drinkingRate;
+                Toast.makeText(context, "You drank:" + String.valueOf(amount) +"."
+                        , Toast.LENGTH_LONG).show();
+                logIntakeHelper(amount);
             }
 
         }

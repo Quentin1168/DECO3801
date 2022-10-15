@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TimerActivity">
+
+    <Button
+        android:id="@+id/timerButton"
+        android:layout_width="356dp"
+        android:layout_height="136dp"
+        android:onClick="measureTime"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.672" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="376dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="867dp"
+        android:layout_marginBottom="287dp"
+        android:text="Time:"
+        android:textSize="100sp"
+        app:layout_constraintBottom_toTopOf="@+id/drinkingRate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.556" />
+
+    <EditText
+        android:id="@+id/drinkInput"
+        android:layout_width="316dp"
+        android:layout_height="129dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Volume:"
+        android:textSize="70sp"
+        app:layout_constraintBottom_toTopOf="@+id/continueButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.759" />
+
+    <Button
+        android:id="@+id/continueButton"
+        android:layout_width="233dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="577dp"
+        android:layout_marginBottom="134dp"
+        android:onClick="setDrinkingRate"
+        android:text="Input:"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/timer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/drinkingRate"
+        android:layout_width="591dp"
+        android:layout_height="109dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="282dp"
+        android:text="Your Drinking Rate is: "
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/timerButton"
+        app:layout_constraintStart_toStartOf="@+id/timer"
+        app:layout_constraintTop_toBottomOf="@+id/timer" />
+</androidx.constraintlayout.widget.ConstraintLayout>
