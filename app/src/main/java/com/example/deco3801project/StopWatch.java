@@ -1,7 +1,6 @@
 package com.example.deco3801project;
 
 import android.app.Activity;
-import android.os.Handler;
 import java.util.Calendar;
 import java.util.Date;
 

@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This function handles the clickability of the continueButton in activity_main.xml.
+     * This function handles the click-ability of the continueButton in activity_main.xml.
      * If either the ageInput or intakeInput is filled, then the continueButton will be clickable.
      * If neither is filled, then it will not be clickable.
      * @param v The continueButton in activity_main.xml.

@@ -7,13 +7,9 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.viewpager.widget.PagerAdapter;
@@ -77,14 +73,13 @@ public class SliderAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        inflater = (LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.slide, container, false);
         FrameLayout frameLayout = (FrameLayout)  view.findViewById(R.id.frameLayout);
         ImageView imageView = (ImageView) view.findViewById(R.id.slideimg);
         TextView t1_title = (TextView) view.findViewById(R.id.txtTitle);
         TextView t2_desc = (TextView) view.findViewById(R.id.txtDescription);
         TextView t3_btn = (TextView) view.findViewById(R.id.txtButton);
-        //frameLayout.setBackground(bgImages[position]);
         frameLayout.setBackgroundColor(backgroundColourArray[position]);
         imageView.setImageResource(imagesArray[position]);
         t1_title.setText(titleArray[position]);
