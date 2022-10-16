@@ -155,7 +155,8 @@ public class MainActivity2 extends AppCompatActivity {
 
         // Disable the seekBar
         seekBar.setEnabled(false);
-
+        seekBar.setProgress((int)calculateRemainingPercentage());
+        waveLoadingView.setProgressValue(seekBar.getProgress());
         // Make sure the WaveLoadingView's water level changes accordingly
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -173,7 +174,6 @@ public class MainActivity2 extends AppCompatActivity {
 
             }
         });
-
         float interval = pref.getFloat("interval", (float) 1.0);
         int windowStart = pref.getInt("windowStart", 8);
         int windowEnd = pref.getInt("windowEnd", 20);
