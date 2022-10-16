@@ -2,17 +2,25 @@ package com.example.deco3801project;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -23,8 +31,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Calendar;
+import java.util.UUID;
 
 // https://github.com/tangqi92/WaveLoadingView for the code of wave function
 import me.itangqi.waveloadingview.WaveLoadingView;
@@ -55,7 +66,7 @@ public class MainActivity2 extends AppCompatActivity {
     SharedPreferences checkAppStart = null;    // Check app start times
     private float drinkingRate;
     Context context = this;
-    StopWatch timer =  new StopWatch();
+    StopWatch timer = new StopWatch();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,7 +185,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         SharedPreferences.Editor edit = pref.edit();
 
@@ -220,7 +231,7 @@ public class MainActivity2 extends AppCompatActivity {
      * and updates the currentAmountLeftToDrink sharedPreference.
      * @param v The logButton in activity_main2.xml.
      */
-    public void logIntake(View v){
+    public void logIntake(View v) {
         String drinkStr = drinkInput.getText().toString();
         int drink = 0;
         if (!drinkStr.equals("")) {
@@ -299,7 +310,7 @@ public class MainActivity2 extends AppCompatActivity {
         Intent intent = new Intent(this, HourlyReceiver.class);
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         // Apply the arguments
         Calendar calendar = Calendar.getInstance();
@@ -338,36 +349,112 @@ public class MainActivity2 extends AppCompatActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        measureTime(intent);
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            super.onNewIntent(intent);
+            if (pref.getBoolean("Bluetooth", false)) {
+                Parcelable tagMessages = intent.getParcelableArrayExtra(
+                        NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
+                NdefMessage message = (NdefMessage) tagMessages;
+                if (message.getRecords().length <= 1) {
+                    finish();
+                }
+                byte[] payload = message.getRecords()[1].getPayload();
+                int languageLength = payload[0] & 0x03F;
+                int textLength = payload.length - languageLength - 1;
+                String mac = new String(payload,
+                        languageLength + 1, textLength, StandardCharsets.UTF_8);
+                BluetoothAdapter bAdapter = BluetoothAdapter.getDefaultAdapter();
+                BluetoothDevice bDevice = bAdapter.getRemoteDevice(mac);
+                try {
+                    Toast.makeText(context, "Connect starts", Toast.LENGTH_LONG).show();
+                    new ConnectThread(bDevice);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                measureTime();
+            }
+        }
     }
 
-    private void measureTime(Intent intent) {
-        if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction()) ||
-                NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()) ||
-                NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            int running = pref.getInt("running", 0);
-            if (pref.getFloat("drinkingRate", 0) == 0.0) {
-                Toast.makeText(context, "Initialisation needed.", Toast.LENGTH_LONG).show();
-                return;
+    public class ConnectThread extends Thread {
+        BluetoothSocket socket;
+        BluetoothDevice bDevice;
+        BluetoothAdapter bAdapter;
+        private ConnectThread(BluetoothDevice device) throws IOException {
+            bAdapter = BluetoothAdapter.getDefaultAdapter();
+            BluetoothSocket tmp = null;
+            bDevice = device;
+            UUID uuid = UUID.fromString("f04c83b4-0f9a-4d5c-869d-700833daeec1");
+            try {
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                tmp = bDevice.createInsecureRfcommSocketToServiceRecord(uuid);
+            } catch (IOException e) {
+                Toast.makeText(context, "Permission needed.", Toast.LENGTH_LONG).show();
             }
-            SharedPreferences.Editor edit = pref.edit();
-            if (running == 0) {
-                Toast.makeText(context, "Timer started.", Toast.LENGTH_LONG).show();
-                timer.setCurrentTime();
-                edit.putInt("running", 1);
-                edit.apply();
-            } else if (running == 1) {
-                double diff = timer.getTimeDifference()-1.5;
-                edit.putInt("running", 0);
-                edit.apply();
-                drinkingRate = pref.getFloat("drinkingRate", 0);
-                int amount = (int) Math.round(diff * drinkingRate);
-                Toast.makeText(context, "You drank: " + amount +"."
-                        , Toast.LENGTH_LONG).show();
-                logIntakeHelper(amount);
+            socket = tmp;
+            try {
+                assert socket != null;
+                socket.connect();
+            } catch (IOException connectException) {
+                Toast.makeText(context, "Connect Failure", Toast.LENGTH_LONG).show();
+                try {
+                    socket.close();
+                } catch (IOException closeException) {
+                    closeException.printStackTrace();
+                }
             }
+            receive();
+        }
 
+        public void receive() throws IOException {
+            InputStream mmInputStream = socket.getInputStream();
+            byte[] buffer = new byte[256];
+            int bytes;
+
+            try {
+                bytes = mmInputStream.read(buffer);
+                String readMessage = new String(buffer, 0, bytes);
+                Toast.makeText(context, readMessage, Toast.LENGTH_LONG).show();
+
+                socket.close();
+            } catch (IOException e) {
+                finish();
+            }
+        }
+
+    }
+
+    private void measureTime() {
+        int running = pref.getInt("running", 0);
+        if (pref.getFloat("drinkingRate", 0) == 0.0) {
+            Toast.makeText(context, "Initialisation needed.", Toast.LENGTH_LONG).show();
+            return;
+        }
+        SharedPreferences.Editor edit = pref.edit();
+        if (running == 0) {
+            Toast.makeText(context, "Timer started.", Toast.LENGTH_LONG).show();
+            timer.setCurrentTime();
+            edit.putInt("running", 1);
+            edit.apply();
+        } else if (running == 1) {
+            double diff = timer.getTimeDifference()-1.5;
+            edit.putInt("running", 0);
+            edit.apply();
+            drinkingRate = pref.getFloat("drinkingRate", 0);
+            int amount = (int) Math.round(diff * drinkingRate);
+            Toast.makeText(context, "You drank: " + amount +"."
+                    , Toast.LENGTH_LONG).show();
+            logIntakeHelper(amount);
         }
     }
 

@@ -145,8 +145,8 @@ public class WriteNFC extends AppCompatActivity {
             NdefRecord address = NdefRecord.createTextRecord("en",
                     bluetooth.getText().toString());
             records = new NdefRecord[]{
-                    address,
-                    mimeRecord
+                    mimeRecord,
+                    address
             };
         } else {
             records = new NdefRecord[]{
