@@ -366,7 +366,6 @@ public class MainActivity2 extends AppCompatActivity {
                 BluetoothAdapter bAdapter = BluetoothAdapter.getDefaultAdapter();
                 BluetoothDevice bDevice = bAdapter.getRemoteDevice(mac);
                 try {
-                    Toast.makeText(context, "Connect starts", Toast.LENGTH_LONG).show();
                     new ConnectThread(bDevice);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -420,12 +419,20 @@ public class MainActivity2 extends AppCompatActivity {
             InputStream mmInputStream = socket.getInputStream();
             byte[] buffer = new byte[256];
             int bytes;
-
+            SharedPreferences.Editor edit = pref.edit();
             try {
                 bytes = mmInputStream.read(buffer);
                 String readMessage = new String(buffer, 0, bytes);
                 Toast.makeText(context, readMessage, Toast.LENGTH_LONG).show();
-
+                if (!pref.contains("firstReading")) {
+                    edit.putInt("firstReading", Integer.parseInt(readMessage));
+                } else {
+                    int firstReading = pref.getInt("firstReading", 0);
+                    int result = firstReading - Integer.parseInt(readMessage);
+                    logIntakeHelper(result);
+                    edit.remove("firstReading");
+                }
+                edit.apply();
                 socket.close();
             } catch (IOException e) {
                 finish();
