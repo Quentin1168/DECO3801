@@ -30,8 +30,8 @@ public class SliderAdapter extends PagerAdapter {
     // Use this to place images on top of background
     public int[] imagesArray = {R.drawable.img_drinkup, R.drawable.img_nfcbottle, R.drawable.img_carryit};
     // Title message & description array
-    public String[] titleArray = {"Welcome to the Smart Bottle & APP","Less hassle with our Smart Bottle","Start Today!"};
-    public String[] descriptionArray = {"Our smart water bottle & app encourage you to drink more water",
+    public String[] titleArray = {"Welcome to TapTapWater","Less hassle with our app","Start Today!"};
+    public String[] descriptionArray = {"Our app encourages you to drink more water",
             "Our smart bottle automatically gets your water intake",
             "Just with your age and gender, or your essential daily water intake"};
     public int[] backgroundColourArray = {Color.rgb(230, 236, 235),
