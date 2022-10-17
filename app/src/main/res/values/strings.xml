@@ -33,7 +33,7 @@
     <string name="edit_notifications">Edit Notifications</string>
     <string name="save">SAVE</string>
     <string name="drinking_rate_recording">Drinking Rate Recording</string>
-    <string name="input_volume_ml_s">Input Volume (mL/s)</string>
+    <string name="input_volume_ml_s">Input Volume (mL)</string>
     <string name="your_time_to_drink">Your Time to Drink:</string>
     <string name="start_timing">Start Timing</string>
     <string name="your_drinking_rate_estimate_is_ml_s">Your Drinking Rate estimate is (mL/s):</string>

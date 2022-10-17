@@ -64,8 +64,9 @@ public class TimerActivity extends AppCompatActivity {
         continueButton = findViewById(R.id.inputButton);
         drinkInput.addTextChangedListener(continueTextWatcher);
 
+        drinkingRate = findViewById(R.id.drinkingRate);
+
         if (pref.contains("drinkingRate")) {
-            drinkingRate = findViewById(R.id.drinkingRate);
             drinkingRate.setText(String.valueOf(pref.getFloat("drinkingRate", (float) 0.0)));
         }
     }
