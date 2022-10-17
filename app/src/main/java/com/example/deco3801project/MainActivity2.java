@@ -483,7 +483,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     /**
      * This function sends the user to the Notification Editing screen when the btnEditNotification
-     * at the top left of activity_main2.xml is clicked.
+     * at the bottom right of activity_main2.xml is clicked.
      * @param v The btnEditNotification in activity_main2.xml.
      */
     public void handleEditNotification(View v) {
@@ -492,5 +492,23 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * This function is overridden to ensure that the back button will always return the user to the
+     * activity_main.xml.
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(MainActivity2.this, MainActivity.class));
+        finish();
+    }
 
+    /**
+     * This function sends the user to the information input screen when the btnSettings at the
+     * top right of activity_main2.xml is clicked.
+     * @param v The btnSettings in activity_main2.xml.
+     */
+    public void handleSettingsButton (View v) { // This function runs when NFC button is pressed
+        onBackPressed();
+    }
 }

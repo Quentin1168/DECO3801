@@ -50,6 +50,7 @@
         android:showDividers="middle"
         android:text="@string/recommended_daily_intake"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -141,19 +142,20 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:onClick="enterTimer"
             android:background="@android:color/transparent"
             android:contentDescription="@string/timer"
+            android:onClick="enterTimer"
             app:srcCompat="@drawable/ic_timer" />
 
         <ImageButton
-            android:id="@+id/btnCalendar"
+            android:id="@+id/btnEditNotification"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/calendar"
-            app:srcCompat="@drawable/ic_calendar" />
+            android:contentDescription="@string/setting"
+            android:onClick="handleEditNotification"
+            app:srcCompat="@drawable/ic_edit_notification" />
 
     </LinearLayout>
 
@@ -168,14 +170,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btnEditNotification"
+            android:id="@+id/btnSettings"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/setting"
-            android:onClick="handleEditNotification"
-            app:srcCompat="@drawable/ic_edit_notification" />
+            android:contentDescription="@string/calendar"
+            android:onClick="handleSettingsButton"
+            app:srcCompat="@drawable/ic_setting" />
 
         <ImageButton
             android:id="@+id/btnNFC"
