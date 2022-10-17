@@ -349,8 +349,8 @@ public class MainActivity2 extends AppCompatActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            super.onNewIntent(intent);
             if (pref.getBoolean("Bluetooth", false)) {
                 Parcelable tagMessages = intent.getParcelableArrayExtra(
                         NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
