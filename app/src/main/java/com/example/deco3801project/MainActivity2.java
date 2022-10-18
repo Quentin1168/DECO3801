@@ -138,7 +138,10 @@ public class MainActivity2 extends AppCompatActivity {
 
         // The total amount of water to drink initially
         TextView amountToDrink = findViewById(R.id.amountToDrink);
-        amountToDrink.setText(String.valueOf(pref.getInt("currentAmountLeftToDrink", 0)));
+        amountToDrink.setText(String.valueOf(pref.getInt("currentAmountLeftToDrink", 0))
+                .concat(" of ")
+                .concat(String.valueOf(pref.getInt("recommendedIntake", 0)))
+                .concat(" remaining"));
 
         // The percentage of the amount left to drink
         TextView amountToDrinkPercent = findViewById(R.id.amountToDrinkPercentage);
@@ -260,7 +263,10 @@ public class MainActivity2 extends AppCompatActivity {
         TextView amountToDrinkPercent = findViewById(R.id.amountToDrinkPercentage);
 
         // Update the TextViews' texts appropriately
-        amountToDrink.setText(String.valueOf(currentAmountLeftToDrink));
+        amountToDrink.setText(String.valueOf(currentAmountLeftToDrink)
+                .concat(" of ")
+                .concat(String.valueOf(pref.getInt("recommendedIntake", 0)))
+                .concat(" remaining"));
         double percentageRemaining = calculateRemainingPercentage();
         amountToDrinkPercent.setText(String.valueOf((int) percentageRemaining).concat("%"));
         drinkInput.setText("");
@@ -343,7 +349,10 @@ public class MainActivity2 extends AppCompatActivity {
         TextView amountToDrinkPercent = findViewById(R.id.amountToDrinkPercentage);
 
         // Update the TextViews' texts appropriately
-        amountToDrink.setText(String.valueOf(recommendedIntake));
+        amountToDrink.setText(String.valueOf(recommendedIntake)
+                .concat(" of ")
+                .concat(String.valueOf(recommendedIntake))
+                .concat(" remaining"));
         amountToDrinkPercent.setText(maxPercentage);
     }
 
