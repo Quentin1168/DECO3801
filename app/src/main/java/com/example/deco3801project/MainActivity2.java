@@ -361,6 +361,7 @@ public class MainActivity2 extends AppCompatActivity {
         super.onNewIntent(intent);
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
             if (pref.getBoolean("Bluetooth", false)) {
+                // Gets bluetooth address from the nfc tag
                 Parcelable tagMessages = intent.getParcelableArrayExtra(
                         NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
                 NdefMessage message = (NdefMessage) tagMessages;
@@ -385,6 +386,9 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
+    /**
+     * Connects to the Bluetooth socket
+     */
     public class ConnectThread extends Thread {
         BluetoothSocket socket;
         BluetoothDevice bDevice;
@@ -405,7 +409,7 @@ public class MainActivity2 extends AppCompatActivity {
                     // for ActivityCompat#requestPermissions for more details.
                     return;
                 }
-                tmp = bDevice.createInsecureRfcommSocketToServiceRecord(uuid);
+                tmp = bDevice.createRfcommSocketToServiceRecord(uuid);
             } catch (IOException e) {
                 Toast.makeText(context, "Permission needed.", Toast.LENGTH_LONG).show();
             }
@@ -424,6 +428,10 @@ public class MainActivity2 extends AppCompatActivity {
             receive();
         }
 
+        /**
+         * Receives weight data from the bluetooth socket
+         * @throws IOException when connection fail
+         */
         public void receive() throws IOException {
             InputStream mmInputStream = socket.getInputStream();
             byte[] buffer = new byte[256];
@@ -450,6 +458,9 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
+    /**
+     * Measures the time taken for drinking. Calculates and records water intake
+     */
     private void measureTime() {
         int running = pref.getInt("running", 0);
         if (pref.getFloat("drinkingRate", 0) == 0.0) {
