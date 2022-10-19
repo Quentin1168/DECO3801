@@ -24,8 +24,8 @@ import java.security.GeneralSecurityException;
 public class TimerActivity extends AppCompatActivity {
 
     SharedPreferences pref;
-    Context context = this;
-    StopWatch timer = new StopWatch();
+    final Context context = this;
+    final StopWatch timer = new StopWatch();
     int time = 0;
     private EditText drinkInput;
     private Button continueButton;

@@ -7,7 +7,6 @@
     tools:context=".TimerActivity">
 
     <TextView
-        android:id="@+id/drinkingRateRecordingTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="152dp"

@@ -2,13 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/blueInput"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WriteNFC">
 
     <TextView
-        android:id="@+id/writeNFCTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="152dp"
@@ -23,7 +21,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/backButton2"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -38,7 +35,6 @@
         app:srcCompat="@drawable/ic_back_button" />
 
     <Button
-        android:id="@+id/button"
         android:layout_width="143dp"
         android:layout_height="52dp"
         android:onClick="handleWrite"

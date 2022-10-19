@@ -65,8 +65,8 @@ public class WaterIntake extends AppCompatActivity {
     private int recommendedIntake;
     SharedPreferences checkAppStart = null;    // Check app start times
     private float drinkingRate;
-    Context context = this;
-    StopWatch timer = new StopWatch();
+    final Context context = this;
+    final StopWatch timer = new StopWatch();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -391,8 +391,8 @@ public class WaterIntake extends AppCompatActivity {
      */
     public class ConnectThread extends Thread {
         BluetoothSocket socket;
-        BluetoothDevice bDevice;
-        BluetoothAdapter bAdapter;
+        final BluetoothDevice bDevice;
+        final BluetoothAdapter bAdapter;
         private ConnectThread(BluetoothDevice device) throws IOException {
             bAdapter = BluetoothAdapter.getDefaultAdapter();
             BluetoothSocket tmp = null;
