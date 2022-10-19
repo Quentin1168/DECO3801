@@ -392,9 +392,7 @@ public class WaterIntake extends AppCompatActivity {
     public class ConnectThread extends Thread {
         BluetoothSocket socket;
         final BluetoothDevice bDevice;
-        final BluetoothAdapter bAdapter;
         private ConnectThread(BluetoothDevice device) throws IOException {
-            bAdapter = BluetoothAdapter.getDefaultAdapter();
             BluetoothSocket tmp = null;
             bDevice = device;
             UUID uuid = UUID.fromString("f04c83b4-0f9a-4d5c-869d-700833daeec1");
