@@ -108,13 +108,14 @@
         android:minHeight="48dp"
         android:textAllCaps="false"
         android:textColor="#000000"
-        android:textColorHint="#80000000"
+        android:textColorHint="#757575"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.767" />
+        app:layout_constraintVertical_bias="0.767"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/logButton"
@@ -149,7 +150,8 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/setting"
             android:onClick="handleSettingsButton"
-            app:srcCompat="@drawable/ic_setting" />
+            app:srcCompat="@drawable/ic_setting"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <ImageButton
             android:id="@+id/btnTimer"

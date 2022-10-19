@@ -23,13 +23,14 @@
         android:minHeight="48dp"
         android:textAllCaps="false"
         android:textColor="#000000"
-        android:textColorHint="#80000000"
+        android:textColorHint="#757575"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.15"
+        tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/intakeInput"
@@ -47,7 +48,7 @@
         android:minHeight="48dp"
         android:textAllCaps="false"
         android:textColor="#000000"
-        android:textColorHint="#80000000"
+        android:textColorHint="#757575"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,19 +77,21 @@
         android:layout_height="60dp"
         android:onClick="handleGender"
         android:text="@string/gender_male"
+        android:textColor="#4A148C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.335" />
+        app:layout_constraintVertical_bias="0.335"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/Or"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/OR"
-        android:textColor="@color/grey"
+        android:textColor="@color/black"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/intakeInput"
         app:layout_constraintEnd_toEndOf="parent"
