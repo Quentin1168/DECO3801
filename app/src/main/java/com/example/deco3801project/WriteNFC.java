@@ -68,8 +68,9 @@ public class WriteNFC extends AppCompatActivity {
         if (adapter == null) {
             Intent i = new Intent(WriteNFC.this, WaterIntake.class);
             i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            Toast.makeText(this, "Device not supported", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Device not supported (NFC Required)", Toast.LENGTH_LONG).show();
             startActivity(i);
+            finish();
         }
         writeFilter = new IntentFilter[]{};
         Intent intent = new Intent(this, getClass());
