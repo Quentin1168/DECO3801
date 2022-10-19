@@ -137,8 +137,10 @@ public class InputInformation extends AppCompatActivity {
         boolean gender = genderButton.getText().toString().equalsIgnoreCase("Male");
         if (!intake.equals("")) {
             edit.putInt("recommendedIntake", Integer.parseInt(intake));
+            edit.putInt("currentAmountLeftToDrink", Integer.parseInt(intake));
         } else {
             edit.putInt("recommendedIntake", calculateIntake(age, gender));
+            edit.putInt("currentAmountLeftToDrink", calculateIntake(age, gender));
         }
         edit.apply();
 
