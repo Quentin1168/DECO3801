@@ -40,7 +40,7 @@ import java.util.UUID;
 // https://github.com/tangqi92/WaveLoadingView for the code of wave function
 import me.itangqi.waveloadingview.WaveLoadingView;
 
-public class MainActivity2 extends AppCompatActivity {
+public class WaterIntake extends AppCompatActivity {
     /**
      * The application's SharedPreferences, containing:
      * recommendedIntake: The user's recommended water intake based on their age and gender
@@ -75,7 +75,7 @@ public class MainActivity2 extends AppCompatActivity {
         // Slider Intro
 
         if (checkAppStart.getBoolean("first-run", true)) {   // if it is first run
-            Intent i = new Intent(getApplicationContext(), MainActivity3.class);
+            Intent i = new Intent(getApplicationContext(), IntroSlide.class);
             checkAppStart.edit().putBoolean("first-run", false).apply();    // make param to be false
             startActivity(i);
             finish();
@@ -105,7 +105,7 @@ public class MainActivity2 extends AppCompatActivity {
         } catch (IOException e) {
             e.notify();
         }
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_water_intake);
         recommendedIntake = pref.getInt("recommendedIntake", 0);
         drinkingRate = pref.getFloat("drinkingRate", 0);
         // Create a new sharedPref called currentAmountLeftToDrink that will be edited later on
@@ -229,10 +229,10 @@ public class MainActivity2 extends AppCompatActivity {
     };
 
     /**
-     * This function logs the manually-input water intake in drinkInput in activity_main2.xml.
+     * This function logs the manually-input water intake in drinkInput in activity_water_intake.xml.
      * This changes the WaveLoadingView's water leve and its TextViews' texts accordingly,
      * and updates the currentAmountLeftToDrink sharedPreference.
-     * @param v The logButton in activity_main2.xml.
+     * @param v The logButton in activity_water_intake.xml.
      */
     public void logIntake(View v) {
         String drinkStr = drinkInput.getText().toString();
@@ -339,7 +339,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     /**
      * This function resets the water intake TextViews in the middle of the WaveLoadingView in
-     * activity_main2.xml.
+     * activity_water_intake.xml.
      */
     private void resetWaterIntake() {
         int recommendedIntake = pref.getInt("recommendedIntake", 0);
@@ -486,47 +486,47 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void enterTimer(View v) {
-        Intent intent = new Intent(MainActivity2.this, TimerActivity.class);
+        Intent intent = new Intent(WaterIntake.this, TimerActivity.class);
         startActivity(intent);
     }
 
     /**
      * This function sends the user to the NFC screen when the btnNFC at the top right of
-     * activity_main2.xml is clicked.
-     * @param v The btnNFC in activity_main2.xml.
+     * activity_water_intake.xml is clicked.
+     * @param v The btnNFC in activity_water_intake.xml.
      */
     public void handleNFCButton (View v) { // This function runs when NFC button is pressed
-        Intent intent = new Intent(MainActivity2.this, WriteNFC.class);
+        Intent intent = new Intent(WaterIntake.this, WriteNFC.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 
     /**
      * This function sends the user to the Notification Editing screen when the btnEditNotification
-     * at the bottom right of activity_main2.xml is clicked.
-     * @param v The btnEditNotification in activity_main2.xml.
+     * at the bottom right of activity_water_intake.xml is clicked.
+     * @param v The btnEditNotification in activity_water_intake.xml.
      */
     public void handleEditNotification(View v) {
-        Intent intent = new Intent(MainActivity2.this, EditNotification.class);
+        Intent intent = new Intent(WaterIntake.this, EditNotification.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 
     /**
      * This function is overridden to ensure that the back button will always return the user to the
-     * activity_main.xml.
+     * activity_input_information.xml.
      */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(MainActivity2.this, MainActivity.class));
+        startActivity(new Intent(WaterIntake.this, InputInformation.class));
         finish();
     }
 
     /**
      * This function sends the user to the information input screen when the btnSettings at the
-     * top right of activity_main2.xml is clicked.
-     * @param v The btnSettings in activity_main2.xml.
+     * top right of activity_water_intake.xml is clicked.
+     * @param v The btnSettings in activity_water_intake.xml.
      */
     public void handleSettingsButton (View v) { // This function runs when NFC button is pressed
         onBackPressed();

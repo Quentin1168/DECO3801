@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class MainActivity3 extends AppCompatActivity {
+public class IntroSlide extends AppCompatActivity {
 
     ViewPager viewPager;
     SliderAdapter sliderAdapter;
@@ -15,7 +15,7 @@ public class MainActivity3 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.intro_slide);
 
         // Show slides
         viewPager = findViewById(R.id.viewpager);
@@ -24,7 +24,7 @@ public class MainActivity3 extends AppCompatActivity {
 
         TextView txtButton = findViewById(R.id.txtButtonClickable);
         txtButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), InputInformation.class);
             startActivity(intent);
         });
 
