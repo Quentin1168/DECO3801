@@ -120,14 +120,6 @@ public class InputInformation extends AppCompatActivity {
     }
 
     /**
-     * This function handles the age options present in the ageInput in activity_input_information.xml.
-     * @param v The ageInput in activity_input_information.xml.
-     */
-    public void handleAge(View v) {
-        continueButton.requestFocus();
-    }
-
-    /**
      * This function handles the click-ability of the continueButton in activity_input_information.xml.
      * If either the ageInput or intakeInput is filled, then the continueButton will be clickable.
      * If neither is filled, then it will not be clickable.
