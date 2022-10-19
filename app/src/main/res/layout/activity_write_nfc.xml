@@ -31,6 +31,7 @@
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:contentDescription="@string/setting"
+        android:minWidth="48dp"
         android:onClick="handleBackButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -45,7 +46,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch1"
@@ -63,11 +65,12 @@
         android:id="@+id/editTextBluetooth"
         android:layout_width="241dp"
         android:layout_height="75dp"
+        android:autofillHints="bluetooth address"
         android:ems="10"
         android:gravity="center"
         android:hint="@string/bluetooth_address"
-        android:autofillHints="bluetooth address"
         android:inputType="textPersonName"
+        android:textColorHint="#757575"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
