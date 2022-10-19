@@ -158,7 +158,6 @@
         android:onClick="measureTime"
         android:text="@string/measure_time"
         android:textAlignment="center"
-        android:textColor="#4A148C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timer" />
