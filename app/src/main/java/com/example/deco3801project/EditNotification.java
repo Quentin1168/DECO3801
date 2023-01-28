@@ -93,12 +93,12 @@ public class EditNotification extends AppCompatActivity {
 
     /**
      * This function is overridden to ensure that the back button will always return the user to the
-     * activity_main2.xml.
+     * activity_water_intake.xml.
      */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(EditNotification.this, MainActivity2.class));
+        startActivity(new Intent(EditNotification.this, WaterIntake.class));
         finish();
     }
 

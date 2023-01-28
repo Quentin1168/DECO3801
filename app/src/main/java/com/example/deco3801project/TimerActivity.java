@@ -24,8 +24,8 @@ import java.security.GeneralSecurityException;
 public class TimerActivity extends AppCompatActivity {
 
     SharedPreferences pref;
-    Context context = this;
-    StopWatch timer = new StopWatch();
+    final Context context = this;
+    final StopWatch timer = new StopWatch();
     int time = 0;
     private EditText drinkInput;
     private Button continueButton;
@@ -132,12 +132,12 @@ public class TimerActivity extends AppCompatActivity {
 
     /**
      * This function is overridden to ensure that the back button will always return the user to the
-     * activity_main2.xml.
+     * activity_water_intake.xml.
      */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(TimerActivity.this, MainActivity2.class));
+        startActivity(new Intent(TimerActivity.this, WaterIntake.class));
         finish();
     }
     /**

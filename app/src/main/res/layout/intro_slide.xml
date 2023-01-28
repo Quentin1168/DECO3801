@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity3">
+    tools:context=".IntroSlide">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="SpeakableTextPresentCheck">
 
     </androidx.viewpager.widget.ViewPager>
 
@@ -36,7 +37,8 @@
             android:width="320dp"
             android:height="50dp"
             android:clickable="true"
-            android:focusable="true" />
+            android:focusable="true"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 

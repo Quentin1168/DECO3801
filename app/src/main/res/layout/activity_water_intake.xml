@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/background"
+    android:background="@drawable/background1"
     android:orientation="vertical"
     android:showDividers="middle"
-    tools:context=".MainActivity2">
+    tools:context=".WaterIntake">
 
     <TextView
         android:id="@+id/amountToDrinkPercentage"
@@ -19,6 +19,7 @@
         android:layout_marginEnd="143dp"
         android:elevation="10dp"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +36,7 @@
         android:layout_marginEnd="143dp"
         android:elevation="10dp"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,13 +108,14 @@
         android:minHeight="48dp"
         android:textAllCaps="false"
         android:textColor="#000000"
-        android:textColorHint="#80000000"
+        android:textColorHint="#757575"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.767" />
+        app:layout_constraintVertical_bias="0.767"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/logButton"
@@ -127,40 +130,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.873" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logButton">
 
-        <ImageButton
-            android:id="@+id/btnTimer"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/timer"
-            android:onClick="enterTimer"
-            app:srcCompat="@drawable/ic_timer" />
-
-        <ImageButton
-            android:id="@+id/btnEditNotification"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/setting"
-            android:onClick="handleEditNotification"
-            app:srcCompat="@drawable/ic_edit_notification" />
-
-    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -170,17 +142,34 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btnSettings"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/calendar"
+            android:contentDescription="@string/setting"
             android:onClick="handleSettingsButton"
-            app:srcCompat="@drawable/ic_setting" />
+            app:srcCompat="@drawable/ic_setting"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <ImageButton
-            android:id="@+id/btnNFC"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/timer"
+            android:onClick="enterTimer"
+            app:srcCompat="@drawable/ic_timer" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/setting"
+            android:onClick="handleEditNotification"
+            app:srcCompat="@drawable/ic_edit_notification" />
+
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"

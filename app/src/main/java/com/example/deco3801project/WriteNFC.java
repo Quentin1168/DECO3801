@@ -66,10 +66,11 @@ public class WriteNFC extends AppCompatActivity {
         setContentView(R.layout.activity_write_nfc);
         adapter = NfcAdapter.getDefaultAdapter(this);
         if (adapter == null) {
-            Intent i = new Intent(WriteNFC.this, MainActivity2.class);
+            Intent i = new Intent(WriteNFC.this, WaterIntake.class);
             i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            Toast.makeText(this, "Device not supported", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Device not supported (NFC Required)", Toast.LENGTH_LONG).show();
             startActivity(i);
+            finish();
         }
         writeFilter = new IntentFilter[]{};
         Intent intent = new Intent(this, getClass());
@@ -111,12 +112,12 @@ public class WriteNFC extends AppCompatActivity {
 
     /**
      * This function is overridden to ensure that the back button will always return the user to the
-     * activity_main2.xml.
+     * activity_water_intake.xml.
      */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(WriteNFC.this, MainActivity2.class));
+        startActivity(new Intent(WriteNFC.this, WaterIntake.class));
         finish();
     }
 

@@ -47,10 +47,10 @@
             android:exported="false"/>
 
         <activity
-            android:name=".MainActivity3"
+            android:name=".IntroSlide"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".WaterIntake"
             android:exported="true"
             android:launchMode="singleInstance">
             <intent-filter>
@@ -64,7 +64,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".InputInformation"
             android:exported="true">
         </activity>
     </application>

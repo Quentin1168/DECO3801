@@ -16,25 +16,25 @@ import androidx.viewpager.widget.PagerAdapter;
 
 public class SliderAdapter extends PagerAdapter {
 
-    Context context;
+    final Context context;
     LayoutInflater inflater;
 
     // Access background resources
-    Resources res;
-    Drawable bgImage1;
-    Drawable bgImage2;
-    Drawable bgImage3;
+    final Resources res;
+    final Drawable bgImage1;
+    final Drawable bgImage2;
+    final Drawable bgImage3;
     public Drawable[] bgImages;
     // Text buttons
-    public String[] buttonsArray = {"","","Get Started!"};
+    public final String[] buttonsArray = {"","","Get Started!"};
     // Use this to place images on top of background
-    public int[] imagesArray = {R.drawable.img_drinkup, R.drawable.img_nfcbottle, R.drawable.img_carryit};
+    public final int[] imagesArray = {R.drawable.img_drinkup, R.drawable.img_nfcbottle, R.drawable.img_carryit};
     // Title message & description array
-    public String[] titleArray = {"Welcome to TapTapWater","Less hassle with our app","Start Today!"};
-    public String[] descriptionArray = {"Our app encourages you to drink more water",
+    public final String[] titleArray = {"Welcome to TapTapWater","Less hassle with our app","Start Today!"};
+    public final String[] descriptionArray = {"Our app encourages you to drink more water",
             "Our smart bottle automatically gets your water intake",
             "Just with your age and gender, or your essential daily water intake"};
-    public int[] backgroundColourArray = {Color.rgb(230, 236, 235),
+    public final int[] backgroundColourArray = {Color.rgb(230, 236, 235),
             Color.rgb(230, 236, 235), Color.rgb(230, 236, 235)};
 
     public SliderAdapter(Context context) {
@@ -76,7 +76,7 @@ public class SliderAdapter extends PagerAdapter {
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.slide, container, false);
         FrameLayout frameLayout = (FrameLayout)  view.findViewById(R.id.frameLayout);
-        ImageView imageView = (ImageView) view.findViewById(R.id.slideimg);
+        ImageView imageView = (ImageView) view.findViewById(R.id.slide_img);
         TextView t1_title = (TextView) view.findViewById(R.id.txtTitle);
         TextView t2_desc = (TextView) view.findViewById(R.id.txtDescription);
         TextView t3_btn = (TextView) view.findViewById(R.id.txtButton);

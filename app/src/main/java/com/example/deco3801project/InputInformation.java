@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.lang.String;
 import java.security.GeneralSecurityException;
 
-public class MainActivity extends AppCompatActivity {
+public class InputInformation extends AppCompatActivity {
     SharedPreferences pref;
 
     private EditText ageInput;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_input_information);
 
         // Create a Notification Channel for the app's Notifications
         createNotificationChannel();
@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
     };
 
     /**
-     * This function handles the gender options present in the gender_button in activity_main.xml.
+     * This function handles the gender options present in the gender_button in activity_input_information.xml.
      * Pressing this button will switch it from one gender to the other.
-     * @param v The genderButton in activity_main.xml.
+     * @param v The genderButton in activity_input_information.xml.
      */
     public void handleGender(View v) {
         if (genderButton.getText().equals("Male")) {
@@ -120,10 +120,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This function handles the click-ability of the continueButton in activity_main.xml.
+     * This function handles the click-ability of the continueButton in activity_input_information.xml.
      * If either the ageInput or intakeInput is filled, then the continueButton will be clickable.
      * If neither is filled, then it will not be clickable.
-     * @param v The continueButton in activity_main.xml.
+     * @param v The continueButton in activity_input_information.xml.
      */
     public void handleText(View v) {
         String ageStr = ageInput.getText().toString();
@@ -137,12 +137,14 @@ public class MainActivity extends AppCompatActivity {
         boolean gender = genderButton.getText().toString().equalsIgnoreCase("Male");
         if (!intake.equals("")) {
             edit.putInt("recommendedIntake", Integer.parseInt(intake));
+            edit.putInt("currentAmountLeftToDrink", Integer.parseInt(intake));
         } else {
             edit.putInt("recommendedIntake", calculateIntake(age, gender));
+            edit.putInt("currentAmountLeftToDrink", calculateIntake(age, gender));
         }
         edit.apply();
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+        Intent intent = new Intent(getApplicationContext(), WaterIntake.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }

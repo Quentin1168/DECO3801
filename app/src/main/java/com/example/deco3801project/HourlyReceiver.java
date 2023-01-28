@@ -16,7 +16,7 @@ public class HourlyReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         // Create the content intent for the notification
-        Intent contentIntent = new Intent(context, MainActivity2.class);
+        Intent contentIntent = new Intent(context, WaterIntake.class);
         PendingIntent contentPendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, contentIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 

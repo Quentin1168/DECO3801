@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">TapTapWater</string>
     <string name="age">AGE</string>
-    <string name="gender">Gender</string>
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
     <string name="channel_name">Hydration Channel</string>
@@ -14,7 +13,6 @@
     <string name="enter_your_intake">Enter your intake</string>
     <string name="log_intake">Log intake</string>
     <string name="timer">Timer</string>
-    <string name="calendar">Calendar</string>
     <string name="setting">Setting</string>
     <string name="nfc">NFC</string>
     <string name="write">Write</string>
@@ -34,10 +32,12 @@
     <string name="save">SAVE</string>
     <string name="drinking_rate_recording">Drinking Rate Recording</string>
     <string name="input_volume_ml_s">Input Volume (mL)</string>
-    <string name="your_time_to_drink">Your Time to Drink:</string>
-    <string name="start_timing">Start Timing</string>
+    <string name="your_time_to_drink">Your Time to Drink</string>
     <string name="your_drinking_rate_estimate_is_ml_s">Your Drinking Rate estimate is (mL/s):</string>
     <string name="drinking_rate">Drinking Rate</string>
     <string name="to_initialise_and_estimate_your_drinking_rate_when_recording_via_nfc_first_input_the_volume_of_water_you_are_about_to_drink_in_millilitres_then_press_the_start_timing_button_right_before_and_after_you_re_done_drinking">To initialise and estimate your drinking rate when recording via NFC, first input the volume of water you are about to drink in millilitres, then press the Start Timing button right before and after you\'re done drinking.</string>
     <string name="write_nfc">Write NFC</string>
+    <string name="time_to_drink_s">Time to Drink (s):</string>
+    <string name="volume_ml">Volume (mL):</string>
+    <string name="measure_time">Measure Time</string>
 </resources>
